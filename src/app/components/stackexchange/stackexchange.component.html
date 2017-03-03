@@ -1,0 +1,94 @@
+<main id="container" fxLayout="row">
+  <md-card fxFlex.gt-sm="95%" fxFlex.xs="98%" fxFlex.sm="90%">
+    <md-card-header>
+      <md-card-title><h2>Stack Overflow</h2></md-card-title>
+      <button md-icon-button [mdMenuTriggerFor]="menu" class="menu">
+        <md-icon>more_vert</md-icon>
+      </button>
+      <md-menu #menu="mdMenu">
+        <a md-menu-item href="https://stackoverflow.com/users/3787650/owain-van-brakel" target="_blank">
+          <md-icon>link</md-icon>
+          <span>Bezoek m'n Stack Overflow</span>
+        </a>
+      </md-menu>
+    </md-card-header>
+    <md-card-content fxLayout="column" fxLayoutAlign="space-around" class="safari_hack" >
+      <div *ngIf="!loading && !error" fxLayout.gt-sm="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-around" fxLayoutGap="2%" class="safari_hack">
+        <md-card *ngIf="!loading && !error" fxFlex="0 1 300px" class="safari_hack" [class.sm]="'reset_max_height'" [class.xs]="'reset_max_height'">
+          <md-card-header>
+            <md-card-title [innerText]="profile?.display_name"></md-card-title>
+            <md-card-subtitle [innerText]="profile?.location"></md-card-subtitle>
+          </md-card-header>
+          <img md-card-image [src]="profile?.profile_image">
+          <md-card-content>
+            Reputatie: {{ profile?.reputation }}
+          </md-card-content>
+          <md-card-actions>
+            <md-chip-list fxLayout="column">
+              <md-chip selected="true" class="gold" fxFlexAlign="center">
+                {{ profile?.badge_counts.gold }} gouden {{ profile?.badge_counts.gold == '1' ? 'insigne' : 'insignes' }}
+              </md-chip><br />
+              <md-chip selected="true" class="silver" fxFlexAlign="center">
+                {{ profile?.badge_counts.silver }} zilveren {{ profile?.badge_counts.silver == '1' ? 'insigne' : 'insignes' }}
+              </md-chip><br />
+              <md-chip selected="true" class="bronze" fxFlexAlign="center">
+                {{ profile?.badge_counts.bronze }} bronzen {{ profile?.badge_counts.bronze == '1' ? 'insigne' : 'insignes' }}
+              </md-chip>
+            </md-chip-list>
+          </md-card-actions>
+        </md-card>
+
+        <md-card fxFlex="0 1 300px" class="safari_hack" [class.sm]="'reset_max_height'" [class.xs]="'reset_max_height'">
+          <md-card-header>
+            <md-card-title>Insignes</md-card-title>
+          </md-card-header>
+          <md-card-content fxLayout="column">
+            <md-chip selected="true" *ngFor="let badge of badges" [class.gold]="badge.rank == 'gold'" [class.silver]="badge.rank == 'silver'" [class.bronze]="badge.rank == 'bronze'" xFlexAlign="center" fxFlex="1 1 auto">
+              {{ badge.award_count }}x {{ badge.name }}
+            </md-chip>
+          </md-card-content>
+        </md-card>
+
+        <md-card *ngIf="!loading && !error" class="safari_hack" fxFlex="0 1 300px" [class.sm]="'reset_max_height'" [class.xs]="'reset_max_height'">
+          <md-card-header>
+            <md-card-title>Top 10 tags</md-card-title>
+          </md-card-header>
+          <md-card-content fxLayout="column">
+            <md-chip selected="true" *ngFor="let tag of tags" color="accent" class="tags" xFlexAlign="center">
+              {{ tag.count }}x {{ tag.name }}
+            </md-chip>
+          </md-card-content>
+        </md-card>
+      </div>
+
+      <md-card *ngIf="!loading && !error" class="safari_hack answers">
+        <md-card-header>
+          <md-card-title><h3>Laatste 10 antwoorden</h3></md-card-title>
+        </md-card-header>
+        <md-card-content fxLayoutAlign="center" fxLayout.gt-md="row" fxLayout.xs="column" fxLayout.md="column" fxLayout.sm="column" fxLayoutAlign="space-around">
+          <md-list *ngFor="let j of answers;" [hidden]="loading || error" class="safari_hack" [class.gt-md]="'limit_width'">
+            <md-list-item *ngFor="let answer of j">
+              <md-icon md-list-avatar class="bubble_icon">question_answer</md-icon>
+              <h4 md-line class="height"><a [href]="'https://stackoverflow.com/a/' + answer.answer_id" target="_blank">{{ answer.title }}</a></h4>
+              <p md-line class="height">Antwoord geaccepteerd: <span [innerText]="answer.is_accepted ? 'ja' : 'nee'"></span></p>
+              <p md-line class="height" [hidden]="score(answer.score, answer.is_accepted) == '0'">Reputatie: <span [innerText]="score(answer.score, answer.is_accepted)"></span></p>
+            </md-list-item>
+          </md-list>
+        </md-card-content>
+      </md-card>
+      <div *ngIf="loading && !error" fxLayoutAlign="center">
+        <md-progress-circle
+          [color]="'accent'"
+          [mode]="'indeterminate'"
+          fxLayoutAlign="center">
+        </md-progress-circle>
+      </div>
+      <div *ngIf="!loading && error" fxLayoutAlign="center">
+        <p>Er kon geen connectie worden gemaakt met de Stack Exchange API.</p>
+        <md-icon color="primary" class="dissatisfied">
+          sentiment_very_dissatisfied
+        </md-icon>
+      </div>
+    </md-card-content>
+  </md-card>
+</main>

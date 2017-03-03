@@ -1,0 +1,62 @@
+<main id="container" fxLayout='row' fxFlex="80%">
+  <md-card fxFlex="30%" fxHide.sm fxHide.xs>
+    <sebm-google-map
+      [latitude]="52.070311"
+      [longitude]="4.239829"
+      [zoom]="11"
+      [mapDraggable]="false"
+      [disableDoubleClickZoom]="true"
+      [disableDefaultUI]="true"
+      [scrollwheel]="false"
+      [keyboardShortcuts]="false"
+      [zoomControl]="false"
+      [streetViewControl]="false">
+      </sebm-google-map>
+  </md-card>
+
+  <md-card fxFlex.gt-sm="60%" fxFlex.sm="90%" fxFlex.xs="98%">
+    <md-card-header>
+      <md-card-title><h2>Contact</h2></md-card-title>
+    </md-card-header>
+    <md-card-content>
+      <form [formGroup]="ngForm" (ngSubmit)="submitForm(ngForm.value)">
+        <div fxLayout.gt-sm='row' fxLayoutGap="2%" fxLayout.sm='column' fxLayout.xs='column'>
+          <div fxLayout='column' fxFlex.gt-sm="58%" fxFlex.sm="100%" fxFlex.xs="100%" class="safari_hack">
+            <div fxLayout='row' fxLayoutAlign="space-between">
+              <md-input-container fxFlex="30%">
+                <input mdInput placeholder="Voornaam" [formControl]="ngForm.controls['firstName']">
+              </md-input-container>
+              <md-input-container fxFlex="30%">
+                <input mdInput placeholder="Tussenvoegsel" [formControl]="ngForm.controls['preposition']">
+              </md-input-container>
+              <md-input-container fxFlex="30%">
+                <input mdInput placeholder="Achternaam" [formControl]="ngForm.controls['lastName']">
+              </md-input-container>
+            </div>
+            <div fxLayout='row' fxLayoutAlign="space-between">
+              <md-input-container  fxFlex="45%">
+                <input mdInput placeholder="Email" [formControl]="ngForm.controls['mail']">
+              </md-input-container>
+              <md-input-container fxFlex="45%">
+                <input mdInput placeholder="Onderwerp" [formControl]="ngForm.controls['subject']">
+              </md-input-container>
+            </div>
+          </div>
+          <div fxFlex.gt-sm="40%" fxFlex.sm="100%" fxFlex.xs="100%" fxLayoutAlign="stretch" class="safari_hack">
+            <md-input-container fxFlex="90%" fxFlexAlign="stretch">
+              <textarea mdInput placeholder="Bericht" id="message" [formControl]="ngForm.controls['message']" fxFill></textarea>
+            </md-input-container>
+          </div>
+        </div>
+        <div fxLayout='row' fxFlex="90%" fxLayoutAlign="center" fxLayoutGap="20px">
+          <md-slide-toggle [color]="color" class="margin" [formControl]="ngForm.controls['copy']" fxFlexAlign="center">
+            Stuur mij een kopie
+          </md-slide-toggle>
+          <button md-raised-button color="accent" type="submit" [disabled]="!ngForm.valid" fxFlexAlign="center">
+            Verstuur
+          </button>
+        </div>
+      </form>
+    </md-card-content>
+  </md-card>
+</main>

@@ -1,0 +1,12 @@
+#container {
+  justify-content: space-around;
+}
+
+#message {
+  height: 68px !important;
+}
+
+.sebm-google-map-container {
+  height: 225px;
+  width: 100%;
+}

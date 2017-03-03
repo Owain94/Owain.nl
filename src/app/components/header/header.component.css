@@ -1,0 +1,30 @@
+header {
+  background: white url("../../../assets/img/header-1.png") bottom center;
+  background-size: cover;
+  height: 500px;
+  position: relative;
+  align-items: center;
+}
+
+#text_1 {
+  color: #3f51b5;
+  font-size: 5em;
+  font-weight: 900;
+  margin-bottom: 15px;
+}
+
+#text_2 {
+  font-size: 2.35em;
+  margin-bottom: 15px;
+}
+
+#text_3 {
+  font-size: 1em;
+  color: #ff4081;
+}
+
+#image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}

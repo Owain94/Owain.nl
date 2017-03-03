@@ -1,0 +1,24 @@
+[hidden] {
+  display: none !important;
+}
+
+.menu {
+  margin-top: 5px;
+}
+
+.github_link {
+  cursor: pointer;
+}
+
+.height {
+  height: 20px;
+}
+
+.code_icon {
+  margin-top: 10px;
+}
+
+.dissatisfied {
+  margin-top: -5px;
+  margin-left: 5px;
+}
