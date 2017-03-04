@@ -96,7 +96,7 @@ export class StackexchangeComponent implements OnInit {
     const val = Number(score);
     const acc = Boolean(accepted);
 
-    if (val > 0) {
+    if (val > 0 || acc) {
       return `+${(val * 10) + (acc ? 15 : 0)}`;
     } else {
       return String(val);
