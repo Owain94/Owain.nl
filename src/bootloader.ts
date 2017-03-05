@@ -10,7 +10,8 @@ export function bootloader (main): void {
       break;
     case 'interactive':
     case 'complete':
-    // tslint:disable-next-line:no-switch-case-fall-through
+      main();
+      break;
     default:
       main();
   }
