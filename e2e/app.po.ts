@@ -5,7 +5,15 @@ export class OwainPage {
     return browser.get('/');
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  getTitle() {
+    return browser.getTitle();
+  }
+
+  getElement(el: string) {
+    return element(by.css(el));
+  }
+
+  getElements(el: string) {
+    return element.all(by.css(el));
   }
 }

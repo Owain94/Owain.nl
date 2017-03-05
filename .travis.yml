@@ -1,50 +1,40 @@
-#.travis.yml
-
 sudo: required
 dist: trusty
-
 language: node_js
 node_js:
-  - "6.9"
-
+- '6.9'
 branches:
   only:
-    - master
-
+  - master
 addons:
+  sauce_connect: true
 apt:
   sources:
-    - google-chrome
+  - google-chrome
   packages:
-    - google-chrome-stable
-    - google-chrome-beta
-
+  - google-chrome-stable
+  - google-chrome-beta
 before_install:
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-
-before_script:
-  - npm install -g @angular/cli
-  - npm install -g karma
+- export CHROME_BIN=chromium-browser
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+install:
   - npm install
-
+before_script:
+- npm install -g @angular/cli
 script:
-  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ng test --watch false; fi'
-  - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then npm run dist && npm run fixdist; fi'
-
-after_success:
-  if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-    if [ "x$DEPLOY_HOST$DEPLOY_PATH$DEPLOY_USER$DEPLOY_PASSWORD" != "x" ] ; then
-      npm run deploy;
-    else
-      echo "Deployment missing environment variables $DEPLOY_(HOST,PATH,USERNAME,PASSWORD)." ;
-    fi
-  else
-    echo "Deployment omitted.";
+- if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ng e2e --no-progress --no-watch --target=production --environment=prod --no-live-reload; fi
+- if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then npm run dist && npm run fixdist;
   fi
-
+after_success: if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" ==
+  "false" ]; then if [ "x$DEPLOY_HOST$DEPLOY_PATH$DEPLOY_USER$DEPLOY_PASSWORD" !=
+  "x" ] ; then npm run deploy; else echo "Deployment missing environment variables
+  $DEPLOY_(HOST,PATH,USERNAME,PASSWORD)." ; fi else echo "Deployment omitted."; fi
 notifications:
   email:
-    on_failure: change
-    on_success: change
+    on_failure: always
+    on_success: always
+env:
+  global:
+  - secure: kv3kzG1R2vGMo0uMMOwsPWWtA0G8xFTpTkn+Yl2bK1c8LkakcpB1RmHE7rga4Ejm6SvV7/AGT/Y+9sfRUQK5aJOVvK0BewFubxWD9o7H0QKRbqJLRO0AQ/7m2ltkQopG4IgROxVPJTJrvOKqSYwbzAwRHqvwa3Ldf0WBkzPwyXxWtFYp4POKdMkPWYKuF2dQaxERKVqlYqLvex+eQ6pe4BVxLcnkX8yx445PP4Tx4W1caggSdqwqp9cTpym0RH2cdOzlkHTLDIlcoYVKpfafS6dY6VArjdwWHmN9MTf5Z9wTlkJlK0Hf6lEUHq5HvHuQ5tlSLGpf4GwgynwWMKE/Y84AQpyskHho6RDXUbmRP2KV5elIt1anpn0byVbWvRNoHCL32SZsDQVlB3oHKIOfmqeuotYj6V/0Tjy8rj74Ichm6VvLFluUTR+Td3Oktcpc/zXtxwq9IKot1LSyKZO7ShoBdcftdNi/BEOJK8pG0Qy98RRkXZLsSfKuZ/33EuZaJ19MC1orcz16ZpTFXhHTTQOvPi08OK8YPFpcyRZoZAJFzwJC87V+CO2K4zV3SjkVSrXygR3rEzyujCknmmdUcgaENsvsDcEq4eXoBXbTrv6UcLSuPZ8JHQ3ulT/03ZPz9kgX9W0W73P3BiabkD99yKqHNZToxCs3a6ThSJlDOEI=
+  - secure: tOLV84P9aXQAAJZfzW7txFbzQ/wLwpR24zY13aMaT5IJJO8c+AmEAwVzmLygevy7gawp7VtmTo1U6ucVyAMGHK+Zq2l9d+J4oQ/cAHs1JuH/OPfVP8ru79lVuz/N8aIzddLf4zl9WpxGYRftwDLvRFUj88S7uaP1eEY7y88uwpjWBOJpfDFCJaPTM4k5Zz/XW6Sy0IekuvBkTog7lyGEoMzJrjR7Mwi4jOhNYkRu2ECBZiWuHxeETP+E+4IJtuR4QSypCA54PDsJh1iH7UN/CvFB6Z56O2qdnpsUZI9rt6rXD1dYrs3H0IqgiFun9t786uP9Hc7noBeDPe2zNBJv/phU2xG76I7pALAn8oREXHcB+26nwbwhcgVLvv1BA+1hD3y9fTe4/bsWfV0iIunmBVflamNldvrEAQSA+WhLJxE17qBWeaa5pAqXFl0jnOaWkXHzO+8Ouz0SjTLr6rK1+AWfPZ1DyTA4UtCB0PR/s98KTrwfjIPUeY2akROlMvphrkIIw9J6vaCfmcECpbDmMxm1H2EQy3IrCFTWB7Gh1Jxcsm6f39uJu/QysdrUTQtTMvvL6I2N0QkLEmrI/HE626136CxA2mKLm0gkrYyriKTI6PlCxtweai+8AKJjHtG6C/0bHkL0L/tHavAeQr9+NNQJvcBOtw1C7zgSKjFSi7A=
