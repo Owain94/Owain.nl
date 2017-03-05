@@ -122,8 +122,8 @@ table {
   border-spacing: 0;
 }
 
-@import '~https://fonts.googleapis.com/css?family=Roboto';
-@import '~@angular/material/core/theming/prebuilt/indigo-pink.css';
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import '~@angular/material/core/theming/prebuilt/indigo-pink';
 
 body {
   font-family: 'Roboto', sans-serif;

@@ -7,7 +7,7 @@ import { StackexchangeService } from '../../services/stackexchange.service';
 @Component({
   selector: 'app-stackexchange',
   templateUrl: './stackexchange.component.html',
-  styleUrls: ['./stackexchange.component.css']
+  styleUrls: ['./stackexchange.component.scss']
 })
 export class StackexchangeComponent implements OnInit {
   // tslint:disable-next-line:no-inferrable-types

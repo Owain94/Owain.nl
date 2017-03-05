@@ -6,7 +6,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent {
   // tslint:disable-next-line:no-inferrable-types
