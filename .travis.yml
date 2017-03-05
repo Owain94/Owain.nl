@@ -30,11 +30,11 @@ before_script:
   - npm install
 
 script:
-  - ng test --watch false
-  - npm run dist && npm run fixdist
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ng test --watch false; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then npm run dist && npm run fixdist; fi'
 
 after_success:
-  if [ "$TRAVIS_BRANCH" == "master" ] ; then
+  if [ "$TRAVIS_BRANCH" == "master" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     if [ "x$DEPLOY_HOST$DEPLOY_PATH$DEPLOY_USER$DEPLOY_PASSWORD" != "x" ] ; then
       npm run deploy;
     else
