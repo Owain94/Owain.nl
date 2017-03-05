@@ -7,7 +7,7 @@
     "start": "ng serve",
     "dist": "ng build --prod --aot",
     "hmr": "ng serve --hmr -e=hmr",
-    "test": "ng test",
+    "test": "ng test --watch false",
     "lint": "ng lint",
     "lint-staged": "lint-staged",
     "stylelint-staged": "stylelint",
