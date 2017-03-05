@@ -6,6 +6,10 @@ header {
   align-items: center;
 }
 
+header > div {
+  margin-top: 30px;
+}
+
 #text_1 {
   color: #3f51b5;
   font-size: 5em;
