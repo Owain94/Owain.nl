@@ -27,6 +27,8 @@ before_install:
 before_script:
   - npm install -g @angular/cli
   - npm install -g karma
+
+install:
   - npm install
 
 script:
@@ -46,5 +48,5 @@ after_success:
 
 notifications:
   email:
-    on_failure: change
-    on_success: change
+    on_failure: always
+    on_success: always
