@@ -29,7 +29,7 @@ export class MailService {
         method: 'post'
       });
 
-    return this.http.post('https://owain.nl/mail.php', JSON.stringify(values), options)
+    return this.http.post('https://owain.nl/mail/mail.php', JSON.stringify(values), options)
       // .map(res => res.json())
       .catch((err: Response) => {
         return MailService.handleError(err);
