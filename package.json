@@ -7,7 +7,7 @@
     "start": "ng serve",
     "dist": "ng build --prod --aot",
     "fixdist": "./build.sh",
-    "deploy": "./node_modules/.bin/grunt sftp:deploy --force",
+    "deploy": "./node_modules/.bin/grunt sftp:deploy",
     "hmr": "ng serve --hmr -e=hmr",
     "test": "ng test --watch false",
     "lint": "ng lint",

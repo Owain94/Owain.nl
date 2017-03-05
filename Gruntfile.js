@@ -2,11 +2,11 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
+    pkg: grunt.file.readJSON("package.json"),
     sftp: {
       deploy: {
         files: {
-          './': ['dist/.*', 'dist/**']
+          "./": ["dist/.*", "dist/**"]
         },
         options: {
           host: process.env.DEPLOY_HOST,
@@ -14,23 +14,13 @@ module.exports = function(grunt) {
           username: process.env.DEPLOY_USERNAME,
           password: process.env.DEPLOY_PASSWORD,
           showProgress: true,
-          srcBasePath: 'dist',
+          srcBasePath: "dist",
           createDirectories: true
-        }
-      }
-    },
-    sshexec: {
-      test: {
-        command: 'ls',
-        options: {
-          host: process.env.DEPLOY_HOST,
-          username: process.env.DEPLOY_USERNAME,
-          password: process.env.DEPLOY_PASSWORD
         }
       }
     }
   });
 
-  grunt.loadNpmTasks('grunt-ssh');
-  grunt.registerTask('default', ['sftp']);
+  grunt.loadNpmTasks("grunt-ssh");
+  grunt.registerTask("default", ["sftp"]);
 };
