@@ -19,10 +19,10 @@
       <md-card-title><h2>Vaardigheden</h2></md-card-title>
     </md-card-header>
     <md-card-content>
-      <md-chip-list>
+      <md-chip-list selectable="false">
         <md-chip *ngFor="let skill of skills"
             selected="true"
-            color="{{skill.color}}"
+            [color]="skill.color"
             [innerText]="skill.name">
         </md-chip>
       </md-chip-list>
