@@ -20,7 +20,9 @@ export class StackexchangeService {
   }
 
   public getProfile(): Observable<string> {
-    return this.http.get(`https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}?site=stackoverflow&key=${this.key}`)
+    return this.http.get(
+        `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}?site=stackoverflow&key=${this.key}`
+      )
       // .map((res: Response) => res.json())
       .map((res: any) => {
         return res['items'][0];
@@ -32,8 +34,10 @@ export class StackexchangeService {
   }
 
   public getBadges(): Observable<string> {
-    // tslint:disable-next-line:max-line-length
-    return this.http.get(`https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/badges?order=desc&sort=rank&site=stackoverflow&key=${this.key}`)
+    return this.http.get(
+        `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/badges?` +
+        `order=desc&sort=rank&site=stackoverflow&key=${this.key}`
+      )
       // .map((res: Response) => res.json())
       .map((res: any) => {
         return res['items'];
@@ -45,8 +49,10 @@ export class StackexchangeService {
   }
 
   public getTags(): Observable<string> {
-    // tslint:disable-next-line:max-line-length
-    return this.http.get(`https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/tags?order=desc&sort=popular&site=stackoverflow&key=${this.key}`)
+    return this.http.get(
+        `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/tags?` +
+        `order=desc&sort=popular&site=stackoverflow&key=${this.key}`
+      )
       // .map((res: Response) => res.json())
       .map((res: any) => {
         return res['items'];
@@ -58,8 +64,10 @@ export class StackexchangeService {
   }
 
   public getAnswers(): Observable<string> {
-    // tslint:disable-next-line:max-line-length
-    return this.http.get(`https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/answers?order=desc&sort=creation&site=stackoverflow&key=${this.key}`)
+    return this.http.get(
+        `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/answers` +
+        `?order=desc&sort=creation&site=stackoverflow&key=${this.key}`
+      )
       // .map((res: Response) => res.json())
       .map((res: any) => {
         return res['items'];
@@ -71,8 +79,10 @@ export class StackexchangeService {
   }
 
   public getQuestionTitle(questionId: number): Observable<string> {
-    // tslint:disable-next-line:max-line-length
-    return this.http.get(`https://api.stackexchange.com/${this.apiVersion}/questions/${questionId}?order=desc&sort=activity&site=stackoverflow&key=${this.key}`)
+    return this.http.get(
+        `https://api.stackexchange.com/${this.apiVersion}/questions/${questionId}` +
+        `?order=desc&sort=activity&site=stackoverflow&key=${this.key}`
+      )
       // .map((res: Response) => res.json())
       .map((res: any) => {
         return res['items'][0]['title'];
