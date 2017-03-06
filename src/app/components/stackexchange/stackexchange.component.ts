@@ -61,7 +61,7 @@ export class StackexchangeComponent implements OnInit {
 
     this.stackexchangeService.getAnswers().subscribe(
       (res: any) => {
-        this.answers = res.slice(0, 10);
+        this.answers = res;
         this.sliceAnswers();
 
         for (const answerArray in this.answers) {
