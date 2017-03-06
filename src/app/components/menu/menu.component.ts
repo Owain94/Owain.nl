@@ -1,7 +1,9 @@
-import { MouseEvent } from 'angular2-google-maps/core';
-import { DocumentRef } from 'angular2-google-maps/core/utils/browser-globals';
+import {
+  Component,
+  OnInit,
+  HostListener
+} from '@angular/core';
 import { Event } from '@angular/router';
-import { Component, OnInit, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-menu',

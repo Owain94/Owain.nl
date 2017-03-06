@@ -1,9 +1,18 @@
-import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 
 import { MailService } from './mail.service';
 
-import {Observable} from 'rxjs/Observable';
+import {
+  StackexchangeResponse,
+  StackexchangeProfile,
+  StackexchangeBadges,
+  StackexchangeTags,
+  StackexchangeAnswers,
+  StackexchangeQuestion
+} from '../interfaces/stackexchange.interface';
+
+import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
@@ -19,13 +28,14 @@ export class StackexchangeService {
   constructor(private http: Http) {
   }
 
-  public getProfile(): Observable<string> {
+  public getProfile(): Observable<StackexchangeProfile> {
     return this.http.get(
         `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}?site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
-      .map((res: any) => {
-        return res['items'][0];
+      .map((res: Object) => res)
+      .map((res: StackexchangeResponse) => {
+        return res.items[0];
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
@@ -33,14 +43,15 @@ export class StackexchangeService {
       .share();
   }
 
-  public getBadges(): Observable<string> {
+  public getBadges(): Observable<Array<StackexchangeBadges>> {
     return this.http.get(
         `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/badges?` +
         `order=desc&sort=rank&site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
-      .map((res: any) => {
-        return res['items'];
+      .map((res: Object) => res)
+      .map((res: StackexchangeResponse) => {
+        return res.items;
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
@@ -48,14 +59,15 @@ export class StackexchangeService {
       .share();
   }
 
-  public getTags(): Observable<string> {
+  public getTags(): Observable<Array<StackexchangeTags>> {
     return this.http.get(
         `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/tags?` +
-        `order=desc&sort=popular&site=stackoverflow&key=${this.key}`
+        `page=1&pagesize=10&order=desc&sort=popular&site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
-      .map((res: any) => {
-        return res['items'];
+      .map((res: Object) => res)
+      .map((res: StackexchangeResponse) => {
+        return res.items;
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
@@ -63,14 +75,15 @@ export class StackexchangeService {
       .share();
   }
 
-  public getAnswers(): Observable<string> {
+  public getAnswers(): Observable<Array<StackexchangeAnswers>> {
     return this.http.get(
         `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/answers` +
-        `?order=desc&sort=creation&site=stackoverflow&key=${this.key}`
+        `?page=1&pagesize=10&order=desc&sort=creation&site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
-      .map((res: any) => {
-        return res['items'];
+      .map((res: Object) => res)
+      .map((res: StackexchangeResponse) => {
+        return res.items;
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
@@ -78,14 +91,15 @@ export class StackexchangeService {
       .share();
   }
 
-  public getQuestionTitle(questionId: number): Observable<string> {
+  public getQuestionTitles(questionIds: string): Observable<Array<StackexchangeQuestion>> {
     return this.http.get(
-        `https://api.stackexchange.com/${this.apiVersion}/questions/${questionId}` +
-        `?order=desc&sort=activity&site=stackoverflow&key=${this.key}`
+        `https://api.stackexchange.com/${this.apiVersion}/questions/${questionIds}` +
+        `?site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
-      .map((res: any) => {
-        return res['items'][0]['title'];
+      .map((res: Object) => res)
+      .map((res: StackexchangeResponse) => {
+        return res.items;
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
