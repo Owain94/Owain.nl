@@ -24,7 +24,14 @@ export class StackexchangeComponent implements OnInit {
     return str.replace(/&#(\d+);/g, (match, dec) => {
       return String.fromCharCode(dec);
     });
-  };
+  }
+
+  public static sliceArray(array: Array<any>): Array<Array<any>> {
+    const amount = Math.ceil(array.length / 2);
+
+    const leftSide = array.splice(0, amount);
+    return [leftSide, array];
+  }
 
   constructor(private stackexchangeService: StackexchangeService) { }
 
@@ -61,8 +68,7 @@ export class StackexchangeComponent implements OnInit {
 
     this.stackexchangeService.getAnswers().subscribe(
       (res: any) => {
-        this.answers = res;
-        this.sliceAnswers();
+        this.answers = StackexchangeComponent.sliceArray(res);
 
         for (const answerArray in this.answers) {
           if (this.answers.hasOwnProperty(answerArray)) {
@@ -83,13 +89,6 @@ export class StackexchangeComponent implements OnInit {
         this.error = true;
         this.loading = false;
       });
-  }
-
-  public sliceAnswers() {
-    const amount = Math.ceil(this.answers.length / 2);
-
-    const leftSide = this.answers.splice(0, amount);
-    this.answers = [leftSide, this.answers];
   }
 
   public score(score: string, accepted: string): string {

@@ -1,3 +1,4 @@
+import { StackexchangeComponent } from './../stackexchange/stackexchange.component';
 import { Component, OnInit } from '@angular/core';
 
 import { GithubService } from '../../services/github.service';
@@ -19,8 +20,7 @@ export class GithubComponent implements OnInit {
   public ngOnInit() {
     this.githubService.getRepositories().subscribe(
       (res: any) => {
-        this.repositories = res;
-        this.sliceRepositories();
+        this.repositories = StackexchangeComponent.sliceArray(res);
 
         this.loading = false;
       },
@@ -28,12 +28,5 @@ export class GithubComponent implements OnInit {
         this.error = true;
         this.loading = false;
       });
-  }
-
-  public sliceRepositories() {
-    const amount = Math.ceil(this.repositories.length / 2);
-
-    const leftSide = this.repositories.splice(0, amount);
-    this.repositories = [leftSide, this.repositories];
   }
 }
