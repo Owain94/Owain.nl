@@ -58,7 +58,7 @@ export class StackexchangeComponent implements OnInit {
 
     this.stackexchangeService.getTags().subscribe(
       (res: any) => {
-        this.tags = res.slice(0, 10);
+        this.tags = res;
         this.loading = false;
       },
       (err) => {

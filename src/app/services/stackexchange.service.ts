@@ -54,7 +54,7 @@ export class StackexchangeService {
   public getTags(): Observable<string> {
     return this.http.get(
         `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/tags?` +
-        `order=desc&sort=popular&site=stackoverflow&key=${this.key}`
+        `page=1&pagesize=10&order=desc&sort=popular&site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
       .map((res: Object) => res)
