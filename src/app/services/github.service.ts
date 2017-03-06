@@ -1,3 +1,4 @@
+import { GithubResponse } from '../interfaces/github.interface';
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 
@@ -15,15 +16,16 @@ export class GithubService {
   constructor(private http: Http) {
   }
 
-  public getRepositories(): Observable<string> {
+  public getRepositories(): Observable<Array<GithubResponse>> {
     return this.http.get(`https://api.github.com/users/${this.username}/repos`)
       // .map((res: Response) => res.json())
-      .map((res: any) => {
+      .map((res: Object) => res)
+      .map((res: Array<GithubResponse>) => {
 
-        res.sort(function(a, b) {
-            a = new Date(a.updated_at);
-            b = new Date(b.updated_at);
-            return a > b ? -1 : a < b ? 1 : 0;
+        res.sort((a: GithubResponse, b: GithubResponse) => {
+            const right = new Date(a.updated_at);
+            const left = new Date(b.updated_at);
+            return right > left ? -1 : right < left ? 1 : 0;
         });
 
         return res;
