@@ -1,3 +1,4 @@
+import { StackexchangeResponse } from './../interfaces/stackexchange.interface';
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 
@@ -24,8 +25,9 @@ export class StackexchangeService {
         `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}?site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
-      .map((res: any) => {
-        return res['items'][0];
+      .map((res: Object) => res)
+      .map((res: StackexchangeResponse) => {
+        return res.items[0];
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
@@ -39,8 +41,9 @@ export class StackexchangeService {
         `order=desc&sort=rank&site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
-      .map((res: any) => {
-        return res['items'];
+      .map((res: Object) => res)
+      .map((res: StackexchangeResponse) => {
+        return res.items;
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
@@ -54,8 +57,9 @@ export class StackexchangeService {
         `order=desc&sort=popular&site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
-      .map((res: any) => {
-        return res['items'];
+      .map((res: Object) => res)
+      .map((res: StackexchangeResponse) => {
+        return res.items;
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
@@ -69,8 +73,9 @@ export class StackexchangeService {
         `?order=desc&sort=creation&site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
-      .map((res: any) => {
-        return res['items'];
+      .map((res: Object) => res)
+      .map((res: StackexchangeResponse) => {
+        return res.items;
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
@@ -84,8 +89,10 @@ export class StackexchangeService {
         `?order=desc&sort=activity&site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
-      .map((res: any) => {
-        return res['items'][0]['title'];
+      .map((res: Object) => res)
+      .map((res: StackexchangeResponse) => {
+        console.log(res);
+        return res.items[0]['title'];
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
