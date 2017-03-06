@@ -9,8 +9,6 @@ import 'rxjs/add/operator/share';
 @Injectable()
 export class MailService {
   public static handleError (error: Response) {
-    console.error('Caught error');
-    console.error(error);
     return Observable.throw(error.json().error || 'Server error');
   }
 
