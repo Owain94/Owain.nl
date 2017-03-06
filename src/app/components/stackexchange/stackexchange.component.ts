@@ -8,6 +8,7 @@ import {
   StackexchangeResponse,
   StackexchangeProfile,
   StackexchangeBadges,
+  StackexchangeQuestion,
   StackexchangeAnswers,
   StackexchangeTags
 } from '../../interfaces/stackexchange.interface';
@@ -76,22 +77,31 @@ export class StackexchangeComponent implements OnInit {
 
     this.stackexchangeService.getAnswers().subscribe(
       (res: Array<StackexchangeAnswers>) => {
-        this.answers = StackexchangeComponent.sliceArray(res);
+        // tslint:disable-next-line:no-inferrable-types
+        let ids: string = '';
 
-        for (const answerArray in this.answers) {
-          if (this.answers.hasOwnProperty(answerArray)) {
-            for (const answer in this.answers[answerArray]) {
-              if (this.answers[answerArray].hasOwnProperty(answer)) {
-                this.stackexchangeService.getQuestionTitle(this.answers[answerArray][answer]['question_id']).subscribe(
-                  (title: string) => {
-                    this.answers[answerArray][answer]['title'] = StackexchangeComponent.decodeHtmlEntity(title);
-                  });
-              }
-            }
-          }
+        for (const question of res) {
+          ids += `${question.question_id};`;
         }
 
+        this.answers = StackexchangeComponent.sliceArray(res);
         this.loading = false;
+
+        this.stackexchangeService.getQuestionTitles(ids.substring(0, ids.length - 1)).subscribe(
+          (questions: Array<StackexchangeQuestion>) => {
+            for (let i = 0; i <= 1; i++) {
+              for (let j = 0; j <= 4; j++) {
+                let n = (i + 1) * i * (i + i) + j;
+                if (i === 1) {
+                  n++;
+                }
+
+                if (typeof(this.answers[i][j]) !== 'undefined') {
+                  this.answers[i][j]['title'] = StackexchangeComponent.decodeHtmlEntity(questions[n]['title']);
+                }
+              }
+            }
+          });
       },
       (err) => {
         this.error = true;

@@ -91,16 +91,15 @@ export class StackexchangeService {
       .share();
   }
 
-  public getQuestionTitle(questionId: number): Observable<string> {
+  public getQuestionTitles(questionIds: string): Observable<Array<StackexchangeQuestion>> {
     return this.http.get(
-        `https://api.stackexchange.com/${this.apiVersion}/questions/${questionId}` +
-        `?order=desc&sort=activity&site=stackoverflow&key=${this.key}`
+        `https://api.stackexchange.com/${this.apiVersion}/questions/${questionIds}` +
+        `?site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
       .map((res: Object) => res)
       .map((res: StackexchangeResponse) => {
-        console.log(res);
-        return res.items[0]['title'];
+        return res.items;
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
