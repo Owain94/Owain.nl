@@ -1,6 +1,30 @@
-export interface StackexchangeResponse {
+export interface StackexchangeResponseProfile {
   has_more: boolean;
-  items: Array<StackexchangeProfile | StackexchangeBadges | StackexchangeTags | StackexchangeAnswers | StackexchangeQuestion>;
+  items: Array<StackexchangeProfile>;
+  quota_max: number;
+  quota_remaining: number;
+}
+export interface StackexchangeResponseBadges {
+  has_more: boolean;
+  items: Array<StackexchangeBadges>;
+  quota_max: number;
+  quota_remaining: number;
+}
+export interface StackexchangeResponseTags {
+  has_more: boolean;
+  items: Array<StackexchangeTags>;
+  quota_max: number;
+  quota_remaining: number;
+}
+export interface StackexchangeResponseAnswers {
+  has_more: boolean;
+  items: Array<StackexchangeAnswers>;
+  quota_max: number;
+  quota_remaining: number;
+}
+export interface StackexchangeResponseQuestion {
+  has_more: boolean;
+  items: Array<StackexchangeQuestion>;
   quota_max: number;
   quota_remaining: number;
 }

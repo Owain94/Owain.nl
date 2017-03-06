@@ -1,17 +1,18 @@
-import { Subscription } from 'rxjs/Rx';
-import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 
 import { StackexchangeService } from '../../services/stackexchange.service';
 
 import {
-  StackexchangeResponse,
   StackexchangeProfile,
   StackexchangeBadges,
   StackexchangeQuestion,
   StackexchangeAnswers,
   StackexchangeTags
 } from '../../interfaces/stackexchange.interface';
+
+import { Subscription } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/mergeMap';
 
 @Component({
   selector: 'app-stackexchange',
@@ -75,33 +76,13 @@ export class StackexchangeComponent implements OnInit {
         this.loading = false;
       });
 
-    this.stackexchangeService.getAnswers().subscribe(
-      (res: Array<StackexchangeAnswers>) => {
-        // tslint:disable-next-line:no-inferrable-types
-        let ids: string = '';
-
-        for (const question of res) {
-          ids += `${question.question_id};`;
-        }
+    this.stackexchangeService.getAnswers()
+      .mergeMap((res: [Array<StackexchangeAnswers>, string]) => this.stackexchangeService.getQuestionTitles(res))
+      .subscribe((res: Array<StackexchangeQuestion>) => {
+        console.log(res);
 
         this.answers = StackexchangeComponent.sliceArray(res);
         this.loading = false;
-
-        this.stackexchangeService.getQuestionTitles(ids.substring(0, ids.length - 1)).subscribe(
-          (questions: Array<StackexchangeQuestion>) => {
-            for (let i = 0; i <= 1; i++) {
-              for (let j = 0; j <= 4; j++) {
-                let n = (i + 1) * i * (i + i) + j;
-                if (i === 1) {
-                  n++;
-                }
-
-                if (typeof(this.answers[i][j]) !== 'undefined') {
-                  this.answers[i][j]['title'] = StackexchangeComponent.decodeHtmlEntity(questions[n]['title']);
-                }
-              }
-            }
-          });
       },
       (err) => {
         this.error = true;
