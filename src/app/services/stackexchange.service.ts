@@ -1,10 +1,16 @@
+import { StackexchangeComponent } from '../components/stackexchange/stackexchange.component';
+
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 import { MailService } from './mail.service';
 
 import {
-  StackexchangeResponse,
+  StackexchangeResponseProfile,
+  StackexchangeResponseBadges,
+  StackexchangeResponseTags,
+  StackexchangeResponseAnswers,
+  StackexchangeResponseQuestion,
   StackexchangeProfile,
   StackexchangeBadges,
   StackexchangeTags,
@@ -25,6 +31,13 @@ export class StackexchangeService {
   private key: string = 'xIUU9mnXe)I0D8T9iB6eWw((';
   // tslint:disable-next-line:no-inferrable-types
   private userId: number = 3787650;
+
+  private static decodeHtmlEntity(str: string): string {
+    return str.replace(/&#(\d+);/g, (match, dec) => {
+      return String.fromCharCode(dec);
+    });
+  }
+
   constructor(private http: Http) {
   }
 
@@ -34,7 +47,7 @@ export class StackexchangeService {
       )
       // .map((res: Response) => res.json())
       .map((res: Object) => res)
-      .map((res: StackexchangeResponse) => {
+      .map((res: StackexchangeResponseProfile) => {
         return res.items[0];
       })
       .catch((err: Response) => {
@@ -50,7 +63,7 @@ export class StackexchangeService {
       )
       // .map((res: Response) => res.json())
       .map((res: Object) => res)
-      .map((res: StackexchangeResponse) => {
+      .map((res: StackexchangeResponseBadges) => {
         return res.items;
       })
       .catch((err: Response) => {
@@ -66,7 +79,7 @@ export class StackexchangeService {
       )
       // .map((res: Response) => res.json())
       .map((res: Object) => res)
-      .map((res: StackexchangeResponse) => {
+      .map((res: StackexchangeResponseTags) => {
         return res.items;
       })
       .catch((err: Response) => {
@@ -75,15 +88,22 @@ export class StackexchangeService {
       .share();
   }
 
-  public getAnswers(): Observable<Array<StackexchangeAnswers>> {
+  public getAnswers(): Observable<[Array<StackexchangeAnswers>, string]> {
     return this.http.get(
         `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/answers` +
         `?page=1&pagesize=10&order=desc&sort=creation&site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
       .map((res: Object) => res)
-      .map((res: StackexchangeResponse) => {
-        return res.items;
+      .map((res: StackexchangeResponseAnswers) => {
+        // tslint:disable-next-line:no-inferrable-types
+        let ids: string = '';
+
+        for (const question of res.items) {
+          ids += `${question.question_id};`;
+        }
+
+        return [res.items, ids.substring(0, ids.length - 1)];
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
@@ -91,15 +111,27 @@ export class StackexchangeService {
       .share();
   }
 
-  public getQuestionTitles(questionIds: string): Observable<Array<StackexchangeQuestion>> {
+  public getQuestionTitles(answers: [Array<StackexchangeAnswers>, string]): Observable<Array<StackexchangeAnswers>> {
     return this.http.get(
-        `https://api.stackexchange.com/${this.apiVersion}/questions/${questionIds}` +
+        `https://api.stackexchange.com/${this.apiVersion}/questions/${answers[1]}` +
         `?site=stackoverflow&key=${this.key}`
       )
       // .map((res: Response) => res.json())
       .map((res: Object) => res)
-      .map((res: StackexchangeResponse) => {
-        return res.items;
+      .map((res: StackexchangeResponseQuestion) => {
+        for (const answer in answers[0]) {
+          if (answers[0].hasOwnProperty(answer)) {
+            for (const question in res.items) {
+              if (res.items.hasOwnProperty(question)) {
+                if (answers[0][answer]['question_id'] === res.items[question]['question_id']) {
+                  answers[0][answer]['title'] = StackexchangeService.decodeHtmlEntity(res.items[question]['title']);
+                }
+              }
+            }
+          }
+        }
+
+        return answers[0];
       })
       .catch((err: Response) => {
         return MailService.handleError(err);
