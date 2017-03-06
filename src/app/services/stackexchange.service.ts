@@ -1,4 +1,4 @@
-import { StackexchangeResponse } from './../interfaces/stackexchange.interface';
+import { StackexchangeResponse, StackexchangeProfile, StackexchangeBadges, StackexchangeTags, StackexchangeAnswers, StackexchangeQuestion } from './../interfaces/stackexchange.interface';
 import {Injectable} from '@angular/core';
 import {Http, Response} from '@angular/http';
 
@@ -20,7 +20,7 @@ export class StackexchangeService {
   constructor(private http: Http) {
   }
 
-  public getProfile(): Observable<string> {
+  public getProfile(): Observable<StackexchangeProfile> {
     return this.http.get(
         `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}?site=stackoverflow&key=${this.key}`
       )
@@ -35,7 +35,7 @@ export class StackexchangeService {
       .share();
   }
 
-  public getBadges(): Observable<string> {
+  public getBadges(): Observable<Array<StackexchangeBadges>> {
     return this.http.get(
         `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/badges?` +
         `order=desc&sort=rank&site=stackoverflow&key=${this.key}`
@@ -51,7 +51,7 @@ export class StackexchangeService {
       .share();
   }
 
-  public getTags(): Observable<string> {
+  public getTags(): Observable<Array<StackexchangeTags>> {
     return this.http.get(
         `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/tags?` +
         `page=1&pagesize=10&order=desc&sort=popular&site=stackoverflow&key=${this.key}`
@@ -67,7 +67,7 @@ export class StackexchangeService {
       .share();
   }
 
-  public getAnswers(): Observable<string> {
+  public getAnswers(): Observable<Array<StackexchangeAnswers>> {
     return this.http.get(
         `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/answers` +
         `?page=1&pagesize=10&order=desc&sort=creation&site=stackoverflow&key=${this.key}`

@@ -1,3 +1,4 @@
+import { StackexchangeResponse, StackexchangeProfile, StackexchangeBadges, StackexchangeAnswers, StackexchangeTags } from './../../interfaces/stackexchange.interface';
 import { Subscription } from 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
@@ -15,10 +16,10 @@ export class StackexchangeComponent implements OnInit {
   // tslint:disable-next-line:no-inferrable-types
   public error: boolean = false;
 
-  public profile: Array<any> = [];
-  public badges: Array<any> = [];
-  public tags: Array<any> = [];
-  public answers: Array<any> = [];
+  public profile: StackexchangeProfile;
+  public badges: Array<StackexchangeBadges> = [];
+  public tags: Array<StackexchangeTags> = [];
+  public answers: Array<Array<StackexchangeAnswers>> = [];
 
   private static decodeHtmlEntity(str: string): string {
     return str.replace(/&#(\d+);/g, (match, dec) => {
@@ -37,7 +38,7 @@ export class StackexchangeComponent implements OnInit {
 
   public ngOnInit() {
     this.stackexchangeService.getProfile().subscribe(
-      (res: any) => {
+      (res: StackexchangeProfile) => {
         this.profile = res;
         this.loading = false;
       },
@@ -47,7 +48,7 @@ export class StackexchangeComponent implements OnInit {
       });
 
     this.stackexchangeService.getBadges().subscribe(
-      (res: any) => {
+      (res: Array<StackexchangeBadges>) => {
         this.badges = res;
         this.loading = false;
       },
@@ -57,7 +58,7 @@ export class StackexchangeComponent implements OnInit {
       });
 
     this.stackexchangeService.getTags().subscribe(
-      (res: any) => {
+      (res: Array<StackexchangeTags>) => {
         this.tags = res;
         this.loading = false;
       },
@@ -67,7 +68,7 @@ export class StackexchangeComponent implements OnInit {
       });
 
     this.stackexchangeService.getAnswers().subscribe(
-      (res: any) => {
+      (res: Array<StackexchangeAnswers>) => {
         this.answers = StackexchangeComponent.sliceArray(res);
 
         for (const answerArray in this.answers) {

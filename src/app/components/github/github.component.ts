@@ -1,3 +1,4 @@
+import { GithubResponse } from '../../interfaces/github.interface';
 import { StackexchangeComponent } from './../stackexchange/stackexchange.component';
 import { Component, OnInit } from '@angular/core';
 
@@ -13,13 +14,13 @@ export class GithubComponent implements OnInit {
   public loading: boolean = true;
   // tslint:disable-next-line:no-inferrable-types
   public error: boolean = false;
-  public repositories: Array<any> = [];
+  public repositories: Array<Array<GithubResponse>> = [];
 
   constructor(private githubService: GithubService) { }
 
   public ngOnInit() {
     this.githubService.getRepositories().subscribe(
-      (res: any) => {
+      (res: Array<GithubResponse>) => {
         this.repositories = StackexchangeComponent.sliceArray(res);
 
         this.loading = false;
