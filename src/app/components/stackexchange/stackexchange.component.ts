@@ -30,17 +30,10 @@ export class StackexchangeComponent implements OnInit {
   public tags: Array<StackexchangeTags> = [];
 
   public answers: Array<Array<StackexchangeAnswers>> = [];
-  private static decodeHtmlEntity(str: string): string {
-    return str.replace(/&#(\d+);/g, (match, dec) => {
-      return String.fromCharCode(dec);
-    });
-  }
 
   public static sliceArray(array: Array<any>): Array<Array<any>> {
     const amount = Math.ceil(array.length / 2);
-
-    const leftSide = array.splice(0, amount);
-    return [leftSide, array];
+    return [array.slice(0, amount), array.slice(amount, array.length)];
   }
 
   constructor(private stackexchangeService: StackexchangeService) { }
@@ -78,9 +71,7 @@ export class StackexchangeComponent implements OnInit {
 
     this.stackexchangeService.getAnswers()
       .mergeMap((res: [Array<StackexchangeAnswers>, string]) => this.stackexchangeService.getQuestionTitles(res))
-      .subscribe((res: Array<StackexchangeQuestion>) => {
-        console.log(res);
-
+      .subscribe((res: Array<StackexchangeAnswers>) => {
         this.answers = StackexchangeComponent.sliceArray(res);
         this.loading = false;
       },

@@ -1,3 +1,4 @@
+import { StackexchangeComponent } from '../components/stackexchange/stackexchange.component';
 
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
@@ -30,6 +31,13 @@ export class StackexchangeService {
   private key: string = 'xIUU9mnXe)I0D8T9iB6eWw((';
   // tslint:disable-next-line:no-inferrable-types
   private userId: number = 3787650;
+
+  private static decodeHtmlEntity(str: string): string {
+    return str.replace(/&#(\d+);/g, (match, dec) => {
+      return String.fromCharCode(dec);
+    });
+  }
+
   constructor(private http: Http) {
   }
 
@@ -103,7 +111,7 @@ export class StackexchangeService {
       .share();
   }
 
-  public getQuestionTitles(answers: [Array<StackexchangeAnswers>, string]): Observable<Array<StackexchangeQuestion>> {
+  public getQuestionTitles(answers: [Array<StackexchangeAnswers>, string]): Observable<Array<StackexchangeAnswers>> {
     return this.http.get(
         `https://api.stackexchange.com/${this.apiVersion}/questions/${answers[1]}` +
         `?site=stackoverflow&key=${this.key}`
@@ -116,7 +124,7 @@ export class StackexchangeService {
             for (const question in res.items) {
               if (res.items.hasOwnProperty(question)) {
                 if (answers[0][answer]['question_id'] === res.items[question]['question_id']) {
-                  answers[0][answer]['title'] = res.items[question]['title'];
+                  answers[0][answer]['title'] = StackexchangeService.decodeHtmlEntity(res.items[question]['title']);
                 }
               }
             }
