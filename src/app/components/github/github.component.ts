@@ -1,8 +1,10 @@
-import { GithubResponse } from '../../interfaces/github.interface';
-import { StackexchangeComponent } from './../stackexchange/stackexchange.component';
 import { Component, OnInit } from '@angular/core';
 
+import { StackexchangeComponent } from '../stackexchange/stackexchange.component';
+
 import { GithubService } from '../../services/github.service';
+
+import { GithubResponse } from '../../interfaces/github.interface';
 
 @Component({
   selector: 'app-github',

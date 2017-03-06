@@ -1,5 +1,14 @@
-import { Component, OnInit, HostListener } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  HostListener
+} from '@angular/core';
+import {
+  FormGroup,
+  FormBuilder,
+  Validators,
+  FormControl
+} from '@angular/forms';
 import { MdDialog } from '@angular/material';
 
 import { MailDialogComponent } from './maildialog/mail.dialog.component';

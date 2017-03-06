@@ -1,10 +1,11 @@
-import { GithubResponse } from '../interfaces/github.interface';
-import {Injectable} from '@angular/core';
-import {Http, Response} from '@angular/http';
+import { Injectable } from '@angular/core';
+import { Http, Response } from '@angular/http';
 
 import { MailService } from './mail.service';
 
-import {Observable} from 'rxjs/Observable';
+import { GithubResponse } from '../interfaces/github.interface';
+
+import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';

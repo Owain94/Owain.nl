@@ -1,9 +1,16 @@
-import { StackexchangeResponse, StackexchangeProfile, StackexchangeBadges, StackexchangeAnswers, StackexchangeTags } from './../../interfaces/stackexchange.interface';
 import { Subscription } from 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
 
 import { StackexchangeService } from '../../services/stackexchange.service';
+
+import {
+  StackexchangeResponse,
+  StackexchangeProfile,
+  StackexchangeBadges,
+  StackexchangeAnswers,
+  StackexchangeTags
+} from '../../interfaces/stackexchange.interface';
 
 @Component({
   selector: 'app-stackexchange',
@@ -19,8 +26,8 @@ export class StackexchangeComponent implements OnInit {
   public profile: StackexchangeProfile;
   public badges: Array<StackexchangeBadges> = [];
   public tags: Array<StackexchangeTags> = [];
-  public answers: Array<Array<StackexchangeAnswers>> = [];
 
+  public answers: Array<Array<StackexchangeAnswers>> = [];
   private static decodeHtmlEntity(str: string): string {
     return str.replace(/&#(\d+);/g, (match, dec) => {
       return String.fromCharCode(dec);
