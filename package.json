@@ -38,7 +38,7 @@
     "zone.js": "0.8.1"
   },
   "devDependencies": {
-    "@angular/cli": "1.0.0-rc.1",
+    "@angular/cli": "1.0.0-rc.2",
     "@angular/compiler-cli": "4.0.0-rc.2",
     "@angular/service-worker": "1.0.0-beta.6",
     "@angularclass/hmr": "1.2.2",
