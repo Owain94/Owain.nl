@@ -35,7 +35,7 @@
     "ng-http-cache": "1.2.0",
     "rxjs": "5.2.0",
     "web-animations-js": "2.2.2",
-    "zone.js": "0.8.0"
+    "zone.js": "0.8.1"
   },
   "devDependencies": {
     "@angular/cli": "1.0.0-rc.1",
