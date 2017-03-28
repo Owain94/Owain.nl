@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<build-type xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" uuid="c3facffb-438d-4e2c-a498-e805e45c8626" xsi:noNamespaceSchemaLocation="http://www.jetbrains.com/teamcity/schemas/10.0/project-config.xsd">
+  <name>Build</name>
+  <description />
+  <settings>
+    <options>
+      <option name="allowExternalStatus" value="true" />
+    </options>
+    <parameters />
+    <build-runners>
+      <runner id="RUNNER_1" name="Run: yarn install" type="jonnyzzz.yarn">
+        <parameters>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="yarn_commands" value="install" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_2" name="Run: yarn build" type="jonnyzzz.yarn">
+        <parameters>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="yarn_commands"><![CDATA[run dist
+run fixdist]]></param>
+        </parameters>
+      </runner>
+    </build-runners>
+    <vcs-settings>
+      <vcs-entry-ref root-id="Owain_HttpsGithubComOwain94OwainNlRefsHeadsMaster" />
+    </vcs-settings>
+    <requirements />
+    <build-triggers>
+      <build-trigger id="vcsTrigger" type="vcsTrigger">
+        <parameters>
+          <param name="branchFilter" value="+:*" />
+          <param name="quietPeriodMode" value="DO_NOT_USE" />
+        </parameters>
+      </build-trigger>
+    </build-triggers>
+    <build-extensions>
+      <extension id="BUILD_EXT_3" type="commit-status-publisher">
+        <parameters>
+          <param name="github_authentication_type" value="password" />
+          <param name="github_host" value="https://api.github.com" />
+          <param name="github_username" value="Owain94" />
+          <param name="publisherId" value="githubStatusPublisher" />
+          <param name="secure:github_password" value="zxxdd780c66b9af60f03ea50b6c69e2f732b585c5a66744b101c30e3f054a0b42098d0cf9a1ddbec272775d03cbe80d301b" />
+          <param name="vcsRootId" value="Owain_HttpsGithubComOwain94OwainNlRefsHeadsMaster" />
+        </parameters>
+      </extension>
+      <extension id="BUILD_EXT_4" type="commit-status-publisher">
+        <parameters>
+          <param name="publisherId" value="upsourcePublisher" />
+          <param name="secure:upsourcePassword" value="zxxc72f1d3bc9eb969b775d03cbe80d301b" />
+          <param name="upsourceProjectId" value="owain-nl" />
+          <param name="upsourceServerUrl" value="http://136.144.141.239:8082" />
+          <param name="upsourceUsername" value="owain" />
+          <param name="vcsRootId" value="Owain_HttpsGithubComOwain94OwainNlRefsHeadsMaster" />
+        </parameters>
+      </extension>
+    </build-extensions>
+    <cleanup />
+  </settings>
+</build-type>
+
