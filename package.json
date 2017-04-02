@@ -59,7 +59,7 @@
     "lint-staged": "3.4.0",
     "pre-commit": "1.2.2",
     "protractor": "5.1.1",
-    "stylelint": "7.10.0",
+    "stylelint": "7.10.1",
     "stylelint-config-standard": "16.0.0",
     "ts-node": "3.0.2",
     "tslint": "5.0.0",
