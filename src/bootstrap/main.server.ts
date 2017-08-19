@@ -29,14 +29,14 @@ app.engine('html', ngExpressEngine({
 }));
 
 app.set('view engine', 'html');
-app.set('views', 'dist');
+app.set('views', process.env.NODE_ENV === 'production' ? 'Owain.nl/dist' : 'dist');
 
 app.get('/', (req: Request, res: Response) => {
   res.render('index', {req});
 });
 
 app.use(compression());
-app.use('/', expressStaticGzip('dist', {
+app.use('/', expressStaticGzip(process.env.NODE_ENV === 'production' ? 'Owain.nl/dist' : 'dist', {
     indexFromEmptyFile: false,
     enableBrotli: true
   }
