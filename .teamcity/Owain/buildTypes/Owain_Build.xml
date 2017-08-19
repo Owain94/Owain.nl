@@ -45,16 +45,6 @@ run fixdist]]></param>
           <param name="vcsRootId" value="Owain_HttpsGithubComOwain94OwainNlRefsHeadsMaster" />
         </parameters>
       </extension>
-      <extension id="BUILD_EXT_4" type="commit-status-publisher">
-        <parameters>
-          <param name="publisherId" value="upsourcePublisher" />
-          <param name="secure:upsourcePassword" value="zxxc72f1d3bc9eb969b775d03cbe80d301b" />
-          <param name="upsourceProjectId" value="owain-nl" />
-          <param name="upsourceServerUrl" value="http://136.144.141.239:8082" />
-          <param name="upsourceUsername" value="owain" />
-          <param name="vcsRootId" value="Owain_HttpsGithubComOwain94OwainNlRefsHeadsMaster" />
-        </parameters>
-      </extension>
     </build-extensions>
     <cleanup>
       <policy type="days" cleanup-level="EVERYTHING">
