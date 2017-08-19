@@ -14,13 +14,6 @@
           <param name="yarn_commands" value="install" />
         </parameters>
       </runner>
-      <runner id="RUNNER_2" name="Run: yarn build" type="jonnyzzz.yarn">
-        <parameters>
-          <param name="teamcity.step.mode" value="default" />
-          <param name="yarn_commands"><![CDATA[run dist
-run fixdist]]></param>
-        </parameters>
-      </runner>
     </build-runners>
     <vcs-settings>
       <vcs-entry-ref root-id="Owain_HttpsGithubComOwain94OwainNlRefsHeadsMaster" />
