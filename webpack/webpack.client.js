@@ -32,8 +32,8 @@ module.exports = {
   "target": "web",
   "plugins": [
     new webpack.optimize.CommonsChunkPlugin({
-      "name": 'main',
-      "async": 'common',
+      "name": "main",
+      "async": "common",
       "children": true,
       "minChunks": 2
     }),
@@ -60,8 +60,8 @@ module.exports = {
       },
       "excludeAssets": [/style.*.js/],
       "chunksSortMode": function sort(left, right) {
-        let leftIndex = entryPoints.indexOf(left.names[0])
-        let rightindex = entryPoints.indexOf(right.names[0])
+        const leftIndex = entryPoints.indexOf(left.names[0])
+        const rightindex = entryPoints.indexOf(right.names[0])
         if (leftIndex > rightindex) {
             return 1
         } else if (leftIndex < rightindex) {
