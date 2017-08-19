@@ -1,0 +1,60 @@
+main
+  .grid-g
+    .grid-u-1
+      md-card.margin
+        md-card-header
+          md-card-title
+            h2 Stack Overflow
+          button.menu(md-icon-button, [mdMenuTriggerFor]="menu")
+            md-icon more_vert
+          md-menu(#menu="mdMenu")
+            a(md-menu-item, href="https://stackoverflow.com/users/3787650/owain-van-brakel", target="_blank")
+              md-icon link
+              span Bezoek m'n Stack Overflow
+        md-card-content
+          div(*ngIf="browser && profile | async; else loading")
+            div.center(*ngIf="(profile | async)?.error; else no_errors")
+              md-icon.dissatisfied(color="primary") sentiment_very_dissatisfied
+              p Er kon geen connectie worden gemaakt met de Stack Exchange API.
+            ng-template(#no_errors="")
+              h3(md-subheader) Profiel
+              .grid-g
+                .grid-u-1.grid-u-md-1.grid-u-lg-1-3.margin.center_card(*ngIf="profile | async; let profile")
+                  md-card.card
+                    md-card-header
+                      md-card-title {{ profile.display_name }}
+                      md-card-subtitle {{ profile.location }}
+                    img(md-card-image, [src]="profile.profile_image", width="300px", height="300px")
+                    md-card-content.center Reputatie: {{ profile.reputation }}
+                    md-card-actions
+                      md-chip-list.badges
+                        md-chip.chip.gold(selected="true") {{ profile.badge_counts.gold }} gouden {{ profile.badge_counts.gold == '1' ? 'insigne' : 'insignes' }}
+                        md-chip.chip.silver(selected="true") {{ profile?.badge_counts.silver }} zilveren {{ profile.badge_counts.silver == '1' ? 'insigne' : 'insignes' }}
+                        md-chip.chip.bronze(selected="true") {{ profile.badge_counts.bronze }} bronzen {{ profile.badge_counts.bronze == '1' ? 'insigne' : 'insignes' }}
+                .grid-u-1.grid-u-md-1.grid-u-lg-1-3.margin.center_card(*ngIf="badges | async; let badges")
+                  md-card.card.card-width
+                    md-card-header
+                      md-card-title Insignes
+                    md-card-content.flex.badges
+                      md-chip.chip(selected="true", *ngFor="let badge of badges", [class.gold]="badge.rank == 'gold'", [class.silver]="badge.rank == 'silver'", [class.bronze]="badge.rank == 'bronze'") {{ badge.award_count == 1 ? '' : badge.award_count + 'x ' }}{{ badge.name }}
+                .grid-u-1.grid-u-md-1.grid-u-lg-1-3.margin.center_card(*ngIf="tags | async; let tags")
+                  md-card.card.card-width
+                    md-card-header
+                      md-card-title Top 10 tags
+                    md-card-content.flex.badges
+                      md-chip.tags.chip(selected="true", *ngFor="let tag of tags", color="primary") {{ tag.count }}x {{ tag.name }}
+              h3(md-subheader) Laatste 10 antwoorden
+              .grid-g.center(*ngIf="(answers | async); let answers")
+                md-list.grid-u-1.grid-u-md-1.grid-u-lg-1-2.grid-u-xl-1-2.center(*ngFor="let j of answers")
+                  md-list-item(*ngFor="let answer of j")
+                    md-icon.bubble_icon(md-list-avatar) question_answer
+                    h4.height(md-line)
+                      a.stack_link([href]="'https://stackoverflow.com/a/' + answer.answer_id" target="_blank") {{ answer.title }}
+                    p.height(md-line) Antwoord geaccepteerd: 
+                      md-icon.done(*ngIf="answer.is_accepted", md-list-avatar) done
+                      md-icon.clear(*ngIf="!answer.is_accepted", md-list-avatar) clear
+                    p.height(md-line) Reputatie: 
+                      span {{ score(answer.score, answer.is_accepted) == 0 ? '-' : score(answer.score, answer.is_accepted) }}
+          ng-template(#loading="")
+            .loading
+              md-progress-spinner([color]="'accent'", [mode]="'indeterminate'")

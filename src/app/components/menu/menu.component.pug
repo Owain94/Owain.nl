@@ -1,0 +1,21 @@
+.grid-g
+  md-toolbar.grid-u-1-1
+    button.grid-visible-xs.menu(md-icon-button, [mdMenuTriggerFor]="menu")
+      md-icon menu
+
+    md-menu(#menu="mdMenu")
+      button(md-menu-item, (click)="menuClick('about')") Over mij
+      button(md-menu-item, (click)="menuClick('whatpulse')") Whatpulse
+      button(md-menu-item, (click)="menuClick('diplomas')") Diploma’s
+      button(md-menu-item, (click)="menuClick('stackexchange')") Stack Overflow
+      button(md-menu-item, (click)="menuClick('github')") Github
+      a(md-menu-item, href="mailto:owain.vanbrakel@gmail.com") Contact
+
+    .center
+      button.grid-hidden-xs(md-button, (click)="menuClick('about')") Over mij
+      button.grid-hidden-xs(md-button, (click)="menuClick('whatpulse')") Whatpulse
+      button.grid-hidden-xs(md-button, (click)="menuClick('diplomas')") Diploma’s
+      button.grid-hidden-xs(md-button, (click)="menuClick('stackexchange')") Stack Overflow
+      button.grid-hidden-xs(md-button, (click)="menuClick('github')") Github
+      a.grid-hidden-xs(md-button, href="mailto:owain.vanbrakel@gmail.com") Contact
+

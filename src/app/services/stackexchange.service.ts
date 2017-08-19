@@ -1,9 +1,7 @@
-import { StackexchangeComponent } from '../components/stackexchange/stackexchange.component';
-
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
 
-import { MailService } from './mail.service';
+import { stackKey } from '../../helpers/constants';
 
 import {
   StackexchangeResponseProfile,
@@ -14,12 +12,13 @@ import {
   StackexchangeProfile,
   StackexchangeBadges,
   StackexchangeTags,
-  StackexchangeAnswers,
-  StackexchangeQuestion
+  StackexchangeAnswers
 } from '../interfaces/stackexchange.interface';
 
 import { Observable } from 'rxjs/Observable';
 
+import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/share';
 
@@ -27,8 +26,6 @@ import 'rxjs/add/operator/share';
 export class StackexchangeService {
   // tslint:disable-next-line:no-inferrable-types
   private apiVersion: number = 2.2;
-  // tslint:disable-next-line:no-inferrable-types
-  private key: string = 'xIUU9mnXe)I0D8T9iB6eWw((';
   // tslint:disable-next-line:no-inferrable-types
   private userId: number = 3787650;
 
@@ -38,62 +35,56 @@ export class StackexchangeService {
     });
   }
 
-  constructor(private http: Http) {
+  private static sliceArray(array: Array<any>): Array<Array<any>> {
+    const amount = Math.ceil(array.length / 2);
+    return [array.slice(0, amount), array.slice(amount, array.length)];
   }
 
-  public getProfile(): Observable<StackexchangeProfile> {
+  constructor(private http: HttpClient) {}
+
+  public getProfile(): Observable<StackexchangeProfile | {'error': boolean}> {
     return this.http.get(
-        `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}?site=stackoverflow&key=${this.key}`
+        `//api.stackexchange.com/${this.apiVersion}/users/${this.userId}?site=stackoverflow&key=${stackKey}`
       )
-      // .map((res: Response) => res.json())
       .map((res: Object) => res)
       .map((res: StackexchangeResponseProfile) => {
         return res.items[0];
       })
-      .catch((err: Response) => {
-        return MailService.handleError(err);
-      })
+      .catch(error => Observable.of({'error': true}))
       .share();
   }
 
-  public getBadges(): Observable<Array<StackexchangeBadges>> {
+  public getBadges(): Observable<Array<StackexchangeBadges> | {'error': boolean}> {
     return this.http.get(
-        `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/badges?` +
-        `order=desc&sort=rank&site=stackoverflow&key=${this.key}`
+        `//api.stackexchange.com/${this.apiVersion}/users/${this.userId}/badges?` +
+        `order=desc&sort=rank&site=stackoverflow&key=${stackKey}`
       )
-      // .map((res: Response) => res.json())
       .map((res: Object) => res)
       .map((res: StackexchangeResponseBadges) => {
         return res.items;
       })
-      .catch((err: Response) => {
-        return MailService.handleError(err);
-      })
+      .catch(error => Observable.of({'error': true}))
       .share();
   }
 
-  public getTags(): Observable<Array<StackexchangeTags>> {
+  public getTags(): Observable<Array<StackexchangeTags> | {'error': boolean}> {
     return this.http.get(
-        `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/tags?` +
-        `page=1&pagesize=10&order=desc&sort=popular&site=stackoverflow&key=${this.key}`
+        `//api.stackexchange.com/${this.apiVersion}/users/${this.userId}/tags?` +
+        `page=1&pagesize=10&order=desc&sort=popular&site=stackoverflow&key=${stackKey}`
       )
-      // .map((res: Response) => res.json())
-      .map((res: Object) => res)
+      // .map((res: Object) => res)
       .map((res: StackexchangeResponseTags) => {
         return res.items;
       })
-      .catch((err: Response) => {
-        return MailService.handleError(err);
-      })
+      .catch(error => Observable.of({'error': true}))
       .share();
   }
 
-  public getAnswers(): Observable<[Array<StackexchangeAnswers>, string]> {
+  private getAnswers(): Observable<Array<string | Array<StackexchangeAnswers>> | {'error': boolean}> {
     return this.http.get(
-        `https://api.stackexchange.com/${this.apiVersion}/users/${this.userId}/answers` +
-        `?page=1&pagesize=10&order=desc&sort=creation&site=stackoverflow&key=${this.key}`
+        `//api.stackexchange.com/${this.apiVersion}/users/${this.userId}/answers` +
+        `?page=1&pagesize=10&order=desc&sort=creation&site=stackoverflow&key=${stackKey}`
       )
-      // .map((res: Response) => res.json())
       .map((res: Object) => res)
       .map((res: StackexchangeResponseAnswers) => {
         // tslint:disable-next-line:no-inferrable-types
@@ -105,18 +96,15 @@ export class StackexchangeService {
 
         return [res.items, ids.substring(0, ids.length - 1)];
       })
-      .catch((err: Response) => {
-        return MailService.handleError(err);
-      })
+      .catch(error => Observable.of({'error': true}))
       .share();
   }
 
-  public getQuestionTitles(answers: [Array<StackexchangeAnswers>, string]): Observable<Array<StackexchangeAnswers>> {
+  private getQuestionTitles(answers: [Array<StackexchangeAnswers>, string]): Observable<Array<StackexchangeAnswers> | {'error': boolean}> {
     return this.http.get(
-        `https://api.stackexchange.com/${this.apiVersion}/questions/${answers[1]}` +
-        `?site=stackoverflow&key=${this.key}`
+        `//api.stackexchange.com/${this.apiVersion}/questions/${answers[1]}` +
+        `?site=stackoverflow&key=${stackKey}`
       )
-      // .map((res: Response) => res.json())
       .map((res: Object) => res)
       .map((res: StackexchangeResponseQuestion) => {
         for (const answer in answers[0]) {
@@ -133,9 +121,17 @@ export class StackexchangeService {
 
         return answers[0];
       })
-      .catch((err: Response) => {
-        return MailService.handleError(err);
+      .catch(error => Observable.of({'error': true}))
+      .share();
+  }
+
+  public allAnswers(): Observable<Array<Array<StackexchangeAnswers>> | {'error': boolean}> {
+    return this.getAnswers()
+      .mergeMap((res: [Array<StackexchangeAnswers>, string]) => this.getQuestionTitles(res))
+      .map((res: Array<StackexchangeAnswers>) => {
+        return StackexchangeService.sliceArray(res);
       })
+      .catch(error => Observable.of({'error': true}))
       .share();
   }
 }

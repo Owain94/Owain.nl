@@ -1,0 +1,23 @@
+main
+  .grid-g
+    .grid-u-1
+      md-card.margin
+        md-card-header
+          md-card-title
+            h2 WhatPulse
+        md-card-content
+          div(*ngIf="browser && stats | async; let stats; else loading")
+            div.center(*ngIf="stats.error; else no_errors")
+              md-icon.dissatisfied(color="primary") sentiment_very_dissatisfied
+              p Er kon geen connectie worden gemaakt met de WhatPulse API.
+            ng-template(#no_errors="")
+              .grid-g
+                .grid-u-1.grid-u-sm-1.grid-u-md-1-2.grid-u-lg-1-2.center
+                  p(appCountoDirective="", [step]="10", [countTo]="stats.keys", [countFrom]="0", [duration]="1.5", (countoChange)="keys = $event") {{ keys | thousandSeparator }}
+                  span toetsaanslagen deze maand
+                .grid-u-1.grid-u-sm-1.grid-u-md-1-2.grid-u-lg-1-2.center
+                  p(appCountoDirective="", [step]="10", [countTo]="stats.clicks", [countFrom]="0", [duration]="1.5", (countoChange)="clicks = $event") {{ clicks | thousandSeparator }}
+                  span muisklikken deze maand
+          ng-template(#loading="")
+            .loading
+              md-progress-spinner([color]="'accent'", [mode]="'indeterminate'")

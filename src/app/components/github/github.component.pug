@@ -1,0 +1,31 @@
+main
+  .grid-g
+    .grid-u-1
+      md-card.margin
+        md-card-header
+          md-card-title
+            h2 Github
+          button.menu(md-icon-button, [mdMenuTriggerFor]="menu")
+            md-icon more_vert
+          md-menu(#menu="mdMenu")
+            a(md-menu-item, href="https://github.com/Owain94", target="_blank")
+              md-icon link
+              span Bezoek m'n GitHub
+        md-card-content
+          div(*ngIf="browser && repositories | async; let repositories; else loading")
+            div.center(*ngIf="repositories.error; else no_errors")
+              md-icon.dissatisfied(color="primary") sentiment_very_dissatisfied
+              p Er kon geen connectie worden gemaakt met de github API.
+            ng-template(#no_errors="")
+              h3(md-subheader) Repositories
+              .grid-g.center
+                md-list.grid-u-1.grid-u-md-1.grid-u-lg-1-2.grid-u-xl-1-2.center(*ngFor="let j of repositories")
+                  md-list-item(*ngFor="let repo of j")
+                    md-icon.code_icon(md-list-avatar) code
+                    h4.height(md-line)
+                      a.github_link([href]="repo?.clone_url", target="_blank") {{ repo?.name }}
+                    p.height(md-line) Laatst geüpdatet op: {{ repo?.updated_at | betterDate }}
+                    p.height(md-line) Meest gebruikte taal: {{ repo?.language ? repo?.language : '-' }}
+          ng-template(#loading="")
+            .loading
+              md-progress-spinner([color]="'accent'", [mode]="'indeterminate'")

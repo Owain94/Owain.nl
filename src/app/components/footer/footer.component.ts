@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+
+import { Log } from '../../decorators/log.decorator';
 
 @Component({
   selector: 'app-footer',
-  templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.scss']
+  templateUrl: './footer.component.pug',
+  styleUrls: ['./footer.component.styl'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FooterComponent {
-
-}
+@Log()
+export class FooterComponent {}

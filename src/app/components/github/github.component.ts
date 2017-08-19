@@ -1,35 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, OnInit, ChangeDetectionStrategy, Inject, PLATFORM_ID } from '@angular/core';
 
-import { StackexchangeComponent } from '../stackexchange/stackexchange.component';
+import { Log } from '../../decorators/log.decorator';
 
 import { GithubService } from '../../services/github.service';
 
 import { GithubResponse } from '../../interfaces/github.interface';
 
+import { Observable } from 'rxjs/Observable';
+
 @Component({
   selector: 'app-github',
-  templateUrl: './github.component.html',
-  styleUrls: ['./github.component.scss']
+  templateUrl: './github.component.pug',
+  styleUrls: ['./github.component.styl'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
+@Log()
 export class GithubComponent implements OnInit {
-  // tslint:disable-next-line:no-inferrable-types
-  public loading: boolean = true;
-  // tslint:disable-next-line:no-inferrable-types
-  public error: boolean = false;
-  public repositories: Array<Array<GithubResponse>> = [];
+  public repositories: Observable<Array<Array<GithubResponse>> | {'error': boolean}>;
+  public browser: boolean;
 
-  constructor(private githubService: GithubService) { }
+  constructor(private githubService: GithubService,
+              @Inject(PLATFORM_ID) private platformId: Object) {
+    this.browser = isPlatformBrowser(this.platformId);
+  }
 
   public ngOnInit() {
-    this.githubService.getRepositories().subscribe(
-      (res: Array<GithubResponse>) => {
-        this.repositories = StackexchangeComponent.sliceArray(res);
-
-        this.loading = false;
-      },
-      (err) => {
-        this.error = true;
-        this.loading = false;
-      });
+    this.repositories = this.githubService.getRepositories();
   }
 }

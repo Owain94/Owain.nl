@@ -1,15 +1,9 @@
-import {
-  Component,
-  OnInit,
-  HostListener
-} from '@angular/core';
-import {
-  FormGroup,
-  FormBuilder,
-  Validators,
-  FormControl
-} from '@angular/forms';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, PLATFORM_ID, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { MdDialog } from '@angular/material';
+
+import { Log } from '../../decorators/log.decorator';
 
 import { MailDialogComponent } from './maildialog/mail.dialog.component';
 
@@ -17,15 +11,23 @@ import { MailService } from '../../services/mail.service';
 
 @Component({
   selector: 'app-contact',
-  templateUrl: './contact.component.html',
-  styleUrls: ['./contact.component.scss']
+  templateUrl: './contact.component.pug',
+  styleUrls: ['./contact.component.styl'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ContactComponent {
+@Log()
+export class ContactComponent implements OnInit {
   public ngForm: FormGroup;
+  public browser: boolean;
 
   constructor(private formBuilder: FormBuilder,
               private mailService: MailService,
-              public dialog: MdDialog) {
+              public dialog: MdDialog,
+              @Inject(PLATFORM_ID) private platformId: Object) {
+    this.browser = isPlatformBrowser(this.platformId);
+  }
+
+  ngOnInit(): void {
     this.ngForm = this.formBuilder.group({
       'firstName': [null, Validators.required],
       'preposition': '',
@@ -49,9 +51,10 @@ export class ContactComponent {
   }
 
   public submitForm(value: any) {
-    this.mailService.sendMail(value).subscribe();
-    this.dialog.open(MailDialogComponent);
-    this.ngForm.reset();
+    this.mailService.sendMail(value).subscribe((res: {'error': boolean}) => {
+      this.dialog.open(MailDialogComponent);
+      this.ngForm.reset();
+    });
   }
 }
 

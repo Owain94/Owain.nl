@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noUnusedLocals": false
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "angularCompilerOptions": {
+    "entryModule": "./src/app/modules/app.server.module#AppServerModule"
+  }
+}

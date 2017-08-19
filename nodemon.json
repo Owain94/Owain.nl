@@ -1,0 +1,6 @@
+{
+  "watch": [
+    "dist/main.server.bundle.js"
+  ],
+  "ext": "js"
+}

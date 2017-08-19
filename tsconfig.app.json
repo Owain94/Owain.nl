@@ -1,0 +1,15 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./tmp",
+    "module": "es2015"
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "./src/bootstrap/main.server.aot.ts",
+    "./src/bootstrap/main.server.ts",
+    "./src/server/**/*"
+  ]
+}

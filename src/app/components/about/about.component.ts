@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+
+import { Log } from '../../decorators/log.decorator';
 
 @Component({
   selector: 'app-about',
-  templateUrl: './about.component.html',
-  styleUrls: ['./about.component.scss']
+  templateUrl: './about.component.pug',
+  styleUrls: ['./about.component.styl'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
+@Log()
 export class AboutComponent {
   public skills = [
     { name: 'Angular', color: 'primary' },
@@ -12,6 +16,7 @@ export class AboutComponent {
     { name: 'TypeScript', color: 'primary' },
     { name: 'JavaScript', color: 'primary' },
     { name: 'NodeJS', color: 'none' },
+    { name: 'VueJS', color: 'none' },
     { name: 'ASP.NET / ASP.NET MVC', color: 'primary' },
     { name: 'Entity Framework', color: 'accent' },
     { name: 'WinForms', color: 'accent' },

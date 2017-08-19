@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+
+import { Log } from '../../decorators/log.decorator';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss']
+  selector: 'app-root',
+  templateUrl: './main.component.pug',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent {
-
-}
+@Log()
+export class MainComponent {}

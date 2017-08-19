@@ -1,0 +1,31 @@
+main
+  .grid-g
+    .grid-u-1
+      md-card.margin
+        md-card-content
+          h3(md-subheader) Diploma's
+          .grid-g.flex
+            .grid-u-1.grid-u-md-1.grid-u-lg-1-2.grid-u-xl-1-4.center.margin(*ngFor="let diploma of diplomas")
+              md-card.diploma
+                md-card-header
+                  md-card-title {{ diploma.name }}
+                img(md-card-image, [src]="'../../../assets/img/' + diploma.image + '.png'" width="248px" height="248px")
+                md-card-content {{ diploma.date }}
+
+          h3(md-subheader) Certificeringen
+          .grid-g.flex
+            .grid-u-1.grid-u-md-1.grid-u-lg-1-2.grid-u-xl-1-4.center.margin(*ngFor="let certificate of certificates")
+              md-card.diploma
+                md-card-header
+                  md-card-title {{ certificate.name }}
+                img(md-card-image, [src]="'../../../assets/img/' + certificate.image + '.png'" width="248px" height="248px")
+                md-card-content {{ certificate.date }}
+
+          h3(md-subheader) Cursussen
+          .grid-g.flex
+            .grid-u-1.grid-u-md-1.grid-u-lg-1-2.grid-u-xl-1-4.center.margin(*ngFor="let course of courses")
+              md-card.diploma
+                md-card-header
+                  md-card-title {{ course.name }}
+                img(md-card-image, [src]="'../../../assets/img/' + course.image + '.png'" width="248px" height="248px")
+                md-card-content {{ course.date }}

@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+
+import { Log } from '../../decorators/log.decorator';
 
 @Component({
   selector: 'app-header',
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  templateUrl: './header.component.pug',
+  styleUrls: ['./header.component.styl'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HeaderComponent {
-
-}
+@Log()
+export class HeaderComponent {}
