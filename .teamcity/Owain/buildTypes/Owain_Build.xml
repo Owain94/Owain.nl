@@ -14,11 +14,17 @@
           <param name="yarn_commands" value="install" />
         </parameters>
       </runner>
-      <runner id="RUNNER_2" name="Run: yarn build" type="jonnyzzz.yarn">
+      <runner id="RUNNER_14" name="Run: yarn lint" type="jonnyzzz.yarn">
         <parameters>
           <param name="teamcity.step.mode" value="default" />
-          <param name="yarn_commands"><![CDATA[run dist
-run fixdist]]></param>
+          <param name="yarn_commands" value="run lint" />
+        </parameters>
+      </runner>
+      <runner id="RUNNER_15" name="Run: yarn build" type="jonnyzzz.yarn">
+        <parameters>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="yarn_commands"><![CDATA[run build:all
+run build:all:aot]]></param>
         </parameters>
       </runner>
     </build-runners>
@@ -42,16 +48,6 @@ run fixdist]]></param>
           <param name="github_username" value="Owain94" />
           <param name="publisherId" value="githubStatusPublisher" />
           <param name="secure:github_password" value="zxxdd780c66b9af60f03ea50b6c69e2f732b585c5a66744b101c30e3f054a0b42098d0cf9a1ddbec272775d03cbe80d301b" />
-          <param name="vcsRootId" value="Owain_HttpsGithubComOwain94OwainNlRefsHeadsMaster" />
-        </parameters>
-      </extension>
-      <extension id="BUILD_EXT_4" type="commit-status-publisher">
-        <parameters>
-          <param name="publisherId" value="upsourcePublisher" />
-          <param name="secure:upsourcePassword" value="zxxc72f1d3bc9eb969b775d03cbe80d301b" />
-          <param name="upsourceProjectId" value="owain-nl" />
-          <param name="upsourceServerUrl" value="http://136.144.141.239:8082" />
-          <param name="upsourceUsername" value="owain" />
           <param name="vcsRootId" value="Owain_HttpsGithubComOwain94OwainNlRefsHeadsMaster" />
         </parameters>
       </extension>
