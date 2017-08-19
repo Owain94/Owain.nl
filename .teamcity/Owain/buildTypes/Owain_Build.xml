@@ -20,6 +20,13 @@
           <param name="yarn_commands" value="run lint" />
         </parameters>
       </runner>
+      <runner id="RUNNER_15" name="Run: yarn build" type="jonnyzzz.yarn">
+        <parameters>
+          <param name="teamcity.step.mode" value="default" />
+          <param name="yarn_commands"><![CDATA[run build:all
+run build:all:aot]]></param>
+        </parameters>
+      </runner>
     </build-runners>
     <vcs-settings>
       <vcs-entry-ref root-id="Owain_HttpsGithubComOwain94OwainNlRefsHeadsMaster" />
