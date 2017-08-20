@@ -14,7 +14,7 @@ module.exports = {
         "screw_ie8": true
       },
       "compress": {
-        "warnings" : false,
+        "warnings": false,
         "conditionals": true,
         "unused": true,
         "comparisons": true,
