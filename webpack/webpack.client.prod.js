@@ -65,7 +65,8 @@ module.exports = {
           "cdk-visually-hidden",
           "cdk-focus-trap-anchor",
           "mat-dialog-container",
-          "mat-ripple-element"
+          "mat-ripple-element",
+          "*chip*"
         ]
       }
     }),
