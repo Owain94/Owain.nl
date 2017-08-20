@@ -45,6 +45,30 @@ module.exports = {
   },
   "plugins": [
     new PurifyPlugin(),
+    new PurifyCSSPlugin({
+      "paths": glob.sync(
+        path.join(process.cwd(), "src/app/**/*.pug"),
+        path.join(process.cwd(), "src/app/**/*.html")
+      ),
+      "minimize": true,
+      "purifyOptions": {
+        "whitelist": [
+          "cdk-focused",
+          "cdk-mouse-focused",
+          "cdk-global-scrollblock",
+          "cdk-global-overlay-wrapper",
+          "cdk-overlay-pane",
+          "cdk-overlay-backdrop",
+          "cdk-overlay-container",
+          "cdk-overlay-dark-backdrop",
+          "cdk-overlay-backdrop-showing",
+          "cdk-visually-hidden",
+          "cdk-focus-trap-anchor",
+          "mat-dialog-container",
+          "mat-ripple-element"
+        ]
+      }
+    }),
     new FaviconsWebpackPlugin({
       "appName": "Logging",
       "appDescription": "Logging",
