@@ -16,6 +16,7 @@ module.exports = {
     "dist/**/*.eot",
     "dist/**/*.ttf",
     "dist/**/*.woff",
+    "dist/**/*.woff2",
     "dist/assets/**/*"
   ]
 }
