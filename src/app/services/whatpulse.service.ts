@@ -26,9 +26,9 @@ export class WhatpulseService {
       .map((res: Object) => res)
       .map((res) => {
         let keys = 0, clicks = 0;
-        Object.entries(res).forEach((element) => {
-          keys += +element[1].Keys;
-          clicks += +element[1].Clicks;
+        Object.values(res).forEach((element) => {
+          keys += +element.Keys;
+          clicks += +element.Clicks;
         });
         return {
           'keys': keys,
