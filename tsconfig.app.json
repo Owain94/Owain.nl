@@ -8,8 +8,6 @@
     "src/**/*"
   ],
   "exclude": [
-    "./src/bootstrap/main.server.aot.ts",
-    "./src/bootstrap/main.server.ts",
-    "./src/server/**/*"
+    "./src/bootstrap/main.server.ts"
   ]
 }

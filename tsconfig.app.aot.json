@@ -13,8 +13,6 @@
     "src/**/*"
   ],
   "exclude": [
-    "./src/bootstrap/main.worker.ts",
-    "./src/bootstrap/main.server.ts",
-    "./src/server/**/*"
+    "./src/bootstrap/main.server.ts"
   ]
 }
