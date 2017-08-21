@@ -53,6 +53,10 @@ ROUTES.forEach((route: string) => {
   });
 });
 
+app.get('*', (req: Request, res: Response) => {
+  res.redirect('/');
+});
+
 const server = http.createServer(app);
 
 server.listen(app.get('port'), () => {
