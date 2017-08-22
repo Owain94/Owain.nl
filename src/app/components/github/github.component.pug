@@ -8,7 +8,7 @@ main
           button.menu(md-icon-button, [mdMenuTriggerFor]="menu")
             md-icon more_vert
           md-menu(#menu="mdMenu")
-            a(md-menu-item, href="https://github.com/Owain94", target="_blank")
+            a(md-menu-item, href="https://github.com/Owain94", target="_blank", rel="noopener")
               md-icon link
               span Bezoek m'n GitHub
         md-card-content
@@ -23,7 +23,7 @@ main
                   md-list-item(*ngFor="let repo of j")
                     md-icon.code_icon(md-list-avatar) code
                     h4.height(md-line)
-                      a.github_link([href]="repo?.clone_url", target="_blank") {{ repo?.name }}
+                      a.github_link([href]="repo?.clone_url", target="_blank", rel="noopener") {{ repo?.name }}
                     p.height(md-line) Laatst geüpdatet op: {{ repo?.updated_at | betterDate }}
                     p.height(md-line) Meest gebruikte taal: {{ repo?.language ? repo?.language : '-' }}
           ng-template(#loading="")
