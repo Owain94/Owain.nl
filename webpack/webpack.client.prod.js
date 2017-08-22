@@ -14,7 +14,14 @@ const SubresourceIntegrityPlugin = require("webpack-subresource-integrity")
 
 const serviceWorker = path.resolve(process.cwd(), "node_modules", "@angular/service-worker")
 
-const entryPoints = ["inline","polyfills","sw-register","styles","vendor","main"]
+const entryPoints = [
+  "inline",
+  "polyfills",
+  "sw-register",
+  "styles",
+  "vendor",
+  "main"
+]
 
 /**
  * This is a client prod config which should be merged on top of common config
@@ -109,26 +116,36 @@ module.exports = {
         "keepClosingSlash": true
       },
       "excludeAssets": [/style.*.js/],
-      "chunksSortMode": function sort(left, right) {
+      "chunksSortMode": function sort (left, right) {
         const leftIndex = entryPoints.indexOf(left.names[0])
         const rightindex = entryPoints.indexOf(right.names[0])
+
         if (leftIndex > rightindex) {
-            return 1
+          return 1
         } else if (leftIndex < rightindex) {
-            return -1
+          return -1
         } else {
-            return 0
+          return 0
         }
       }
     }),
     new HtmlWebpackExcludeAssetsPlugin(),
     new ScriptExtHtmlWebpackPlugin({
       "async": "main",
-      "inline": ["inline", "sw-register"],
-      "preload": ["main", "polyfills"]
+      "inline": [
+        "inline",
+        "sw-register"
+      ],
+      "preload": [
+        "main",
+        "polyfills"
+      ]
     }),
     new SubresourceIntegrityPlugin({
-      "hashFuncNames": ["sha256", "sha384"]
+      "hashFuncNames": [
+        "sha256",
+        "sha384"
+      ]
     }),
     new ZopfliPlugin({
       "asset": "[path].gz[query]",

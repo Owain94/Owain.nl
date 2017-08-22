@@ -11,7 +11,7 @@
         },
         "cache": {
           "optimizeFor":"freshness",
-          "maxAgeMs": 360000000,
+          "maxAgeMs": 2629746000,
           "maxEntries": 1,
           "strategy": "lru"
         }
@@ -23,7 +23,7 @@
         },
         "cache": {
           "optimizeFor":"freshness",
-          "maxAgeMs": 360000000,
+          "maxAgeMs": 2629746000,
           "maxEntries": 1,
           "strategy": "lru"
         }
@@ -35,7 +35,7 @@
         },
         "cache": {
           "optimizeFor": "freshness",
-          "maxAgeMs": 360000000,
+          "maxAgeMs": 2629746000,
           "maxEntries": 6,
           "strategy": "lru"
         }
