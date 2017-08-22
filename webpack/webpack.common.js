@@ -36,8 +36,8 @@ const postcssPlugins = () => {
       "preset": [
         "default",
         { "autoprefixer": false },
-        { "safe": true},
-        {"discardComments": { "removeAll": true }}
+        { "safe": true },
+        { "discardComments": { "removeAll": true } }
       ]
     }),
     postcssBrowserReporter(),

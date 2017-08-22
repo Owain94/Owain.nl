@@ -1,0 +1,65 @@
+{
+  "static.versioned": [
+    "\\.[0-9a-z]{5}\\."
+  ],
+  "dynamic": {
+    "group": [
+      {
+        "name": "github",
+        "urls": {
+          "/api.github.com/": { "match": "regex" }
+        },
+        "cache": {
+          "optimizeFor":"freshness",
+          "maxAgeMs": 360000000,
+          "maxEntries": 1,
+          "strategy": "lru"
+        }
+      },
+      {
+        "name": "whatpulse",
+        "urls": {
+          "/api.whatpulse.org/": { "match": "regex" }
+        },
+        "cache": {
+          "optimizeFor":"freshness",
+          "maxAgeMs": 360000000,
+          "maxEntries": 1,
+          "strategy": "lru"
+        }
+      },
+      {
+        "name": "stackoverflow",
+        "urls": {
+          "/api.stackexchange.com/": { "match": "regex" }
+        },
+        "cache": {
+          "optimizeFor": "freshness",
+          "maxAgeMs": 360000000,
+          "maxEntries": 6,
+          "strategy": "lru"
+        }
+      },
+      {
+        "name": "imgur",
+        "urls": {
+          "/imgur.com/": { "match": "regex" }
+        },
+        "cache": {
+          "optimizeFor": "freshness",
+          "maxAgeMs": 360000000,
+          "maxEntries": 1,
+          "strategy": "lru"
+        }
+      }
+    ]
+  },
+  "routing": {
+    "index": "/index.html",
+    "routes": {
+      "/": {
+        "prefix": false
+      }
+    }
+  }
+}
