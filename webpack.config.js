@@ -2,6 +2,7 @@ const ngtools = require("@ngtools/webpack")
 const webpackMerge = require("webpack-merge")
 const commonPartial = require("./webpack/webpack.common")
 const clientPartial = require("./webpack/webpack.client")
+const clientDevPartial = require("./webpack/webpack.client.dev")
 const clientProdPartial = require("./webpack/webpack.client.prod")
 const serverPartial = require("./webpack/webpack.server")
 const serverProdPartial = require("./webpack/webpack.server.prod")
@@ -15,31 +16,31 @@ module.exports = function (options, webpackOptions) {
 
   console.log(`Running build for ${options.client ? "client" : options.server ? "server" : "test"} with ${options.aot ? "AoT" : "JiT"} compilation`)
 
-  let serverConfig = webpackMerge({}, commonPartial, serverPartial, {
+  let serverConfig = webpackMerge(commonPartial, serverPartial, {
     plugins: [
       getAotPlugin("server", !!options.aot)
     ]
   })
 
-  let clientConfig = webpackMerge({}, commonPartial, clientPartial, {
+  let clientConfig = webpackMerge(commonPartial, clientPartial, {
     plugins: [
       getAotPlugin("client", !!options.aot)
     ]
   })
 
-  let testConfig = webpackMerge({}, commonPartial, testPartial, {
+  let testConfig = webpackMerge(commonPartial, testPartial, {
     plugins: [
       getAotPlugin("test", !!options.aot)
     ]
   })
 
   if (options.aot) {
-    clientConfig = webpackMerge({}, clientConfig, clientProdPartial, prodPartial)
-    serverConfig = webpackMerge({}, serverConfig, serverProdPartial, prodPartial)
+    clientConfig = webpackMerge(clientConfig, clientProdPartial, prodPartial)
+    serverConfig = webpackMerge(serverConfig, serverProdPartial, prodPartial)
   } else {
-    clientConfig = webpackMerge({}, clientConfig, devPartial)
-    serverConfig = webpackMerge({}, serverConfig, devPartial)
-    testConfig = webpackMerge({}, testConfig, devPartial)
+    clientConfig = webpackMerge(clientConfig, clientDevPartial, devPartial)
+    serverConfig = webpackMerge(serverConfig, devPartial)
+    testConfig = webpackMerge(testConfig, devPartial)
   }
 
   const configs = []

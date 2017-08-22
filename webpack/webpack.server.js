@@ -23,9 +23,6 @@ module.exports = {
       }
     ]
   },
-  "externals": [
-      "mongoose"
-  ],
   "output": {
     "path": path.join(process.cwd(), "dist"),
     "filename": "[name].server.bundle.js",
