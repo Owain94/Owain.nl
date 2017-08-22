@@ -57,7 +57,7 @@ export class StackexchangeService {
   public getBadges(): Observable<Array<StackexchangeBadges> | {'error': boolean}> {
     return this.http.get(
         `//api.stackexchange.com/${this.apiVersion}/users/${this.userId}/badges?` +
-        `order=desc&sort=rank&site=stackoverflow&key=${stackKey}`
+        `page=1&pagesize=10order=asc&sort=rank&site=stackoverflow&key=${stackKey}`
       )
       .map((res: Object) => res)
       .map((res: StackexchangeResponseBadges) => {
