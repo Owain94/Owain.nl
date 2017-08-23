@@ -35,6 +35,7 @@ export class WhatpulseService {
           'clicks': clicks
         };
       })
+      .catch(error => Observable.of({'error': true}))
       .share();
   }
 }
