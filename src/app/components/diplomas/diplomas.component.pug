@@ -9,7 +9,7 @@ main
               md-card.diploma
                 md-card-header
                   md-card-title {{ diploma.name }}
-                img(md-card-image, [src]="'../../../assets/img/' + diploma.image + '.png'" width="248px" height="248px")
+                img(md-card-image, [src]="'../../../assets/img/' + diploma.image + '.png'" width="248px" height="248px", [alt]="diploma.image+ ' logo'")
                 md-card-content {{ diploma.date }}
 
           h3(md-subheader) Certificeringen

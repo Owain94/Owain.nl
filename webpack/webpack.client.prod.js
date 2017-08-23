@@ -135,10 +135,6 @@ module.exports = {
       "inline": [
         "inline",
         "sw-register"
-      ],
-      "preload": [
-        "main",
-        "polyfills"
       ]
     }),
     new SubresourceIntegrityPlugin({

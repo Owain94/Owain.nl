@@ -1,6 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const HtmlWebpackExcludeAssetsPlugin = require("html-webpack-exclude-assets-plugin")
-const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin")
 
 const entryPoints = [
   "inline",
@@ -52,14 +51,6 @@ module.exports = {
         }
       }
     }),
-    new HtmlWebpackExcludeAssetsPlugin(),
-    new ScriptExtHtmlWebpackPlugin({
-      "async": "main",
-      "inline": "inline",
-      "preload": [
-        "main",
-        "polyfills"
-      ]
-    })
+    new HtmlWebpackExcludeAssetsPlugin()
   ]
 }

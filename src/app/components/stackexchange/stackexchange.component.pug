@@ -8,7 +8,7 @@ main
           button.menu(md-icon-button, [mdMenuTriggerFor]="menu")
             md-icon more_vert
           md-menu(#menu="mdMenu")
-            a(md-menu-item, href="https://stackoverflow.com/users/3787650/owain-van-brakel", target="_blank")
+            a(md-menu-item, href="https://stackoverflow.com/users/3787650/owain-van-brakel", target="_blank", rel="noopener")
               md-icon link
               span Bezoek m'n Stack Overflow
         md-card-content
@@ -24,7 +24,7 @@ main
                     md-card-header
                       md-card-title {{ profile.display_name }}
                       md-card-subtitle {{ profile.location }}
-                    img(md-card-image, [src]="profile.profile_image", width="300px", height="300px")
+                    img(md-card-image, [src]="profile.profile_image", width="300px", height="300px", alt="Profile image")
                     md-card-content.center Reputatie: {{ profile.reputation }}
                     md-card-actions
                       md-chip-list.badges
@@ -49,7 +49,7 @@ main
                   md-list-item(*ngFor="let answer of j")
                     md-icon.bubble_icon(md-list-avatar) question_answer
                     h4.height(md-line)
-                      a.stack_link([href]="'https://stackoverflow.com/a/' + answer.answer_id" target="_blank") {{ answer.title }}
+                      a.stack_link([href]="'https://stackoverflow.com/a/' + answer.answer_id" target="_blank", rel="noopener") {{ answer.title }}
                     p.height(md-line) Antwoord geaccepteerd: 
                       md-icon.done(*ngIf="answer.is_accepted", md-list-avatar) done
                       md-icon.clear(*ngIf="!answer.is_accepted", md-list-avatar) clear
