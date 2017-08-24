@@ -64,7 +64,7 @@
     "scroll-behaviour": "0.3.4",
     "serialize-javascript": "1.4.0",
     "web-animations-js": "2.3.1",
-    "zone.js": "0.8.16"
+    "zone.js": "0.8.17"
   },
   "devDependencies": {
     "@angular-devkit/build-optimizer": "0.0.14",
