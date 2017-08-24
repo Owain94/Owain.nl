@@ -17,6 +17,10 @@ main
             h2 Vaardigheden
         md-card-content
           md-chip-list
-            md-chip.chip-margin(*ngFor="let skill of skills",
-                selected="true",
-                [color]="skill.color") {{ skill.name }}
+            a.chip-margin(md-chip="",
+              *ngFor="let skill of skills",
+              selected="true",
+              [color]="skill.color",
+              [href]="skill.link",
+              target="_blank",
+              rel="noopener") {{ skill.name }}
