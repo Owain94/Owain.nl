@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const PreloadWebpackPlugin = require('preload-webpack-plugin')
 const HtmlWebpackExcludeAssetsPlugin = require("html-webpack-exclude-assets-plugin")
 
 const entryPoints = [
@@ -37,7 +38,7 @@ module.exports = {
         "collapseWhitespace": true,
         "keepClosingSlash": true
       },
-      "excludeAssets": [/style.*.js/],
+      "excludeAssets": [/styles.*.js/],
       "chunksSortMode": function sort (left, right) {
         const leftIndex = entryPoints.indexOf(left.names[0])
         const rightindex = entryPoints.indexOf(right.names[0])
@@ -50,6 +51,15 @@ module.exports = {
           return 0
         }
       }
+    }),
+    new PreloadWebpackPlugin({
+      "rel": 'preload',
+      "include": [
+        'styles'
+      ],
+      "fileBlacklist": [
+        /styles.*.js/
+      ]
     }),
     new HtmlWebpackExcludeAssetsPlugin()
   ]

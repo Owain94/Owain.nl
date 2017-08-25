@@ -3,6 +3,7 @@ const glob = require("glob")
 const nodeModules = path.join(process.cwd(), "node_modules")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
+const PreloadWebpackPlugin = require('preload-webpack-plugin')
 const HtmlWebpackExcludeAssetsPlugin = require("html-webpack-exclude-assets-plugin")
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin")
 const ZopfliPlugin = require("zopfli-webpack-plugin");
@@ -115,7 +116,7 @@ module.exports = {
         "collapseWhitespace": true,
         "keepClosingSlash": true
       },
-      "excludeAssets": [/style.*.js/],
+      "excludeAssets": [/styles.*.js/],
       "chunksSortMode": function sort (left, right) {
         const leftIndex = entryPoints.indexOf(left.names[0])
         const rightindex = entryPoints.indexOf(right.names[0])
@@ -128,6 +129,15 @@ module.exports = {
           return 0
         }
       }
+    }),
+    new PreloadWebpackPlugin({
+      "rel": 'preload',
+      "include": [
+        'styles'
+      ],
+      "fileBlacklist": [
+        /styles.*.js/
+      ]
     }),
     new HtmlWebpackExcludeAssetsPlugin(),
     new ScriptExtHtmlWebpackPlugin({
