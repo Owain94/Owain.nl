@@ -9,7 +9,10 @@ main
               md-card.diploma
                 md-card-header
                   md-card-title {{ diploma.name }}
-                img(md-card-image, [src]="'../../../assets/img/' + diploma.image + '.png'" width="248px" height="248px", [alt]="diploma.image+ ' logo'")
+                picture(md-card-image)
+                  source([srcset]="'../../../assets/img/' + diploma.image + '.webp'", type='image/webp', width="248px" height="248px")
+                  source([srcset]="'../../../assets/img/' + diploma.image + '.png'", type='image/png', width="248px" height="248px")
+                  img([src]="'../../../assets/img/' + diploma.image + '.png'", width="248px" height="248px", [alt]="diploma.image + ' logo'")
                 md-card-content {{ diploma.date }}
 
           h3(md-subheader) Certificeringen
@@ -18,7 +21,10 @@ main
               md-card.diploma
                 md-card-header
                   md-card-title {{ certificate.name }}
-                img(md-card-image, [src]="'../../../assets/img/' + certificate.image + '.png'" width="248px" height="248px")
+                picture(md-card-image)
+                  source([srcset]="'../../../assets/img/' + certificate.image + '.webp'", type='image/webp', width="248px" height="248px")
+                  source([srcset]="'../../../assets/img/' + certificate.image + '.png'", type='image/png', width="248px" height="248px")
+                  img([src]="'../../../assets/img/' + certificate.image + '.png'", width="248px" height="248px", [alt]="certificate.image + ' logo'")
                 md-card-content {{ certificate.date }}
 
           h3(md-subheader) Cursussen
@@ -27,5 +33,8 @@ main
               md-card.diploma
                 md-card-header
                   md-card-title {{ course.name }}
-                img(md-card-image, [src]="'../../../assets/img/' + course.image + '.png'" width="248px" height="248px")
+                picture(md-card-image)
+                  source([srcset]="'../../../assets/img/' + course.image + '.webp'", type='image/webp', width="248px" height="248px")
+                  source([srcset]="'../../../assets/img/' + course.image + '.png'", type='image/png', width="248px" height="248px")
+                  img([src]="'../../../assets/img/' + course.image + '.png'", width="248px" height="248px", [alt]="course.image + ' logo'")
                 md-card-content {{ course.date }}
