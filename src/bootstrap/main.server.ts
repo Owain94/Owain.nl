@@ -11,7 +11,6 @@ import { ROUTES } from '../helpers/routes';
 const http = require('http');
 const expressStaticGzip = require('express-static-gzip');
 const compression = require('compression');
-const bodyParser = require('body-parser');
 
 if (process.env.NODE_ENV === 'production') {
   enableProdMode();
@@ -24,25 +23,16 @@ const app = express();
 
 app.set('port', 8061);
 
+app.set('view engine', 'html');
+app.set('views', process.env.NODE_ENV === 'production' ? 'Owain.nl/dist' : 'dist');
+app.use('/', expressStaticGzip(process.env.NODE_ENV === 'production' ? 'Owain.nl/dist' : 'dist', {
+  enableBrotli: true
+}));
+app.use(compression());
+
 app.engine('html', ngExpressEngine({
   bootstrap: AppServerModule
 }));
-
-app.set('view engine', 'html');
-app.set('views', process.env.NODE_ENV === 'production' ? 'Owain.nl/dist' : 'dist');
-
-app.get('/', (req: Request, res: Response) => {
-  res.render('index', {req});
-});
-
-app.use(compression());
-app.use('/', expressStaticGzip(process.env.NODE_ENV === 'production' ? 'Owain.nl/dist' : 'dist', {
-    indexFromEmptyFile: false,
-    enableBrotli: true
-  }
-));
-app.use(bodyParser.json({limit: '5mb'}));
-app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }));
 
 ROUTES.forEach((route: string) => {
   app.get(route, (req: Request, res: Response) => {

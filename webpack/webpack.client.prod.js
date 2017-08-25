@@ -156,11 +156,11 @@ module.exports = {
     new ZopfliPlugin({
       "asset": "[path].gz[query]",
       "algorithm": "zopfli",
-      "test": /\.(js|css|svg|ttf)$/
+      "test": /\.(html|js|css|svg|ttf)$/
     }),
     new BrotliPlugin({
       "asset": "[path].br[query]",
-      "test": /\.(js|css|svg|ttf)$/
+      "test": /\.(html|js|css|svg|ttf)$/
     }),
     new ServiceWorkerPlugin({
       "baseHref": "/"
