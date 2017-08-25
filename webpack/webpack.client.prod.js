@@ -3,7 +3,7 @@ const glob = require("glob")
 const nodeModules = path.join(process.cwd(), "node_modules")
 const CopyWebpackPlugin = require("copy-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const PreloadWebpackPlugin = require('preload-webpack-plugin')
+const PreloadWebpackPlugin = require("preload-webpack-plugin")
 const HtmlWebpackExcludeAssetsPlugin = require("html-webpack-exclude-assets-plugin")
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin")
 const ZopfliPlugin = require("zopfli-webpack-plugin");
@@ -131,9 +131,9 @@ module.exports = {
       }
     }),
     new PreloadWebpackPlugin({
-      "rel": 'preload',
+      "rel": "preload",
       "include": [
-        'styles'
+        "styles"
       ],
       "fileBlacklist": [
         /styles.*.js/
