@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin")
-const PreloadWebpackPlugin = require('preload-webpack-plugin')
+const PreloadWebpackPlugin = require("preload-webpack-plugin")
 const HtmlWebpackExcludeAssetsPlugin = require("html-webpack-exclude-assets-plugin")
 
 const entryPoints = [
@@ -53,9 +53,9 @@ module.exports = {
       }
     }),
     new PreloadWebpackPlugin({
-      "rel": 'preload',
+      "rel": "preload",
       "include": [
-        'styles'
+        "styles"
       ],
       "fileBlacklist": [
         /styles.*.js/
