@@ -65,7 +65,7 @@
   },
   "devDependencies": {
     "@angular-devkit/build-optimizer": "0.0.21",
-    "@angular/compiler-cli": "4.4.3",
+    "@angular/compiler-cli": "4.4.4",
     "@angular/language-service": "4.4.3",
     "@angular/service-worker": "1.0.0-beta.16",
     "@ngtools/webpack": "1.7.1",
