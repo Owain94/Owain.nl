@@ -1,62 +1,62 @@
 main
   .grid-g
     .grid-u-1
-      md-card.margin
-        md-card-header
-          md-card-title
+      mat-card.margin
+        mat-card-header
+          mat-card-title
             h2 Stack Overflow
-          button.menu(md-icon-button, [mdMenuTriggerFor]="menu")
-            md-icon more_vert
-          md-menu(#menu="mdMenu")
-            a(md-menu-item, href="https://stackoverflow.com/users/3787650/owain-van-brakel", target="_blank", rel="noopener")
-              md-icon link
+          button.menu(mat-icon-button, [matMenuTriggerFor]="menu")
+            mat-icon more_vert
+          mat-menu(#menu="matMenu")
+            a(mat-menu-item, href="https://stackoverflow.com/users/3787650/owain-van-brakel", target="_blank", rel="noopener")
+              mat-icon link
               span Bezoek m'n Stack Overflow
-        md-card-content
+        mat-card-content
           div(*ngIf="browser && profile | async; else loading")
             div.center(*ngIf="(profile | async)?.error; else no_errors")
-              md-icon.dissatisfied(color="primary") sentiment_very_dissatisfied
+              mat-icon.dissatisfied(color="primary") sentiment_very_dissatisfied
               p Er kon geen connectie worden gemaakt met de Stack Exchange API.
             ng-template(#no_errors="")
-              h3(md-subheader) Profiel
+              h3(mat-subheader) Profiel
               .grid-g
                 .grid-u-1.grid-u-md-1.grid-u-lg-1-3.margin.center_card(*ngIf="profile | async; let profile")
-                  md-card.card
-                    md-card-header
-                      md-card-title {{ profile.display_name }}
-                      md-card-subtitle {{ profile.location }}
-                    img(md-card-image, [src]="profile.profile_image", width="300px", height="300px", alt="Profile image")
-                    md-card-content.center Reputatie: {{ profile.reputation }}
-                    md-card-actions
-                      md-chip-list.badges
-                        md-chip.chip.gold(selected="true") {{ profile.badge_counts.gold }} gouden {{ profile.badge_counts.gold == '1' ? 'insigne' : 'insignes' }}
-                        md-chip.chip.silver(selected="true") {{ profile?.badge_counts.silver }} zilveren {{ profile.badge_counts.silver == '1' ? 'insigne' : 'insignes' }}
-                        md-chip.chip.bronze(selected="true") {{ profile.badge_counts.bronze }} bronzen {{ profile.badge_counts.bronze == '1' ? 'insigne' : 'insignes' }}
+                  mat-card.card
+                    mat-card-header
+                      mat-card-title {{ profile.display_name }}
+                      mat-card-subtitle {{ profile.location }}
+                    img(mat-card-image, [src]="profile.profile_image", width="300px", height="300px", alt="Profile image")
+                    mat-card-content.center Reputatie: {{ profile.reputation }}
+                    mat-card-actions
+                      mat-chip-list.badges
+                        mat-chip.chip.gold(selected="true") {{ profile.badge_counts.gold }} gouden {{ profile.badge_counts.gold == '1' ? 'insigne' : 'insignes' }}
+                        mat-chip.chip.silver(selected="true") {{ profile?.badge_counts.silver }} zilveren {{ profile.badge_counts.silver == '1' ? 'insigne' : 'insignes' }}
+                        mat-chip.chip.bronze(selected="true") {{ profile.badge_counts.bronze }} bronzen {{ profile.badge_counts.bronze == '1' ? 'insigne' : 'insignes' }}
                 .grid-u-1.grid-u-md-1.grid-u-lg-1-3.margin.center_card(*ngIf="badges | async; let badges")
-                  md-card.card.card-width
-                    md-card-header
-                      md-card-title Top 10 Insignes
-                    md-card-content.flex.badges
-                      md-chip-list
-                        a.chip(md-chip="", *ngFor="let badge of badges", [href]="badge.link", target="_blank", rel="noopener", selected="true", [class.gold]="badge.rank == 'gold'", [class.silver]="badge.rank == 'silver'", [class.bronze]="badge.rank == 'bronze'") {{ badge.award_count == 1 ? '' : badge.award_count + '× ' }}{{ badge.name }}
+                  mat-card.card.card-width
+                    mat-card-header
+                      mat-card-title Top 10 Insignes
+                    mat-card-content.flex.badges
+                      mat-chip-list
+                        a.chip(mat-chip="", *ngFor="let badge of badges", [href]="badge.link", target="_blank", rel="noopener", selected="true", [class.gold]="badge.rank == 'gold'", [class.silver]="badge.rank == 'silver'", [class.bronze]="badge.rank == 'bronze'") {{ badge.award_count == 1 ? '' : badge.award_count + '× ' }}{{ badge.name }}
                 .grid-u-1.grid-u-md-1.grid-u-lg-1-3.margin.center_card(*ngIf="tags | async; let tags")
-                  md-card.card.card-width
-                    md-card-header
-                      md-card-title Top 10 tags
-                    md-card-content.flex.badges
-                      md-chip-list
-                        a.chip(md-chip="", *ngFor="let tag of tags", [href]="'https://stackoverflow.com/questions/tagged/' + tag.name", target="_blank", rel="noopener", selected="true", color="primary") {{ tag.count }}× {{ tag.name }}
-              h3(md-subheader) Laatste 10 antwoorden
+                  mat-card.card.card-width
+                    mat-card-header
+                      mat-card-title Top 10 tags
+                    mat-card-content.flex.badges
+                      mat-chip-list
+                        a.chip(mat-chip="", *ngFor="let tag of tags", [href]="'https://stackoverflow.com/questions/tagged/' + tag.name", target="_blank", rel="noopener", selected="true", color="primary") {{ tag.count }}× {{ tag.name }}
+              h3(mat-subheader) Laatste 10 antwoorden
               .grid-g.center(*ngIf="(answers | async); let answers")
-                md-list.grid-u-1.grid-u-md-1.grid-u-lg-1-2.grid-u-xl-1-2.center(*ngFor="let j of answers")
-                  md-list-item(*ngFor="let answer of j")
-                    md-icon.bubble_icon(md-list-avatar) question_answer
-                    h4.height(md-line)
+                mat-list.grid-u-1.grid-u-md-1.grid-u-lg-1-2.grid-u-xl-1-2.center(*ngFor="let j of answers")
+                  mat-list-item(*ngFor="let answer of j")
+                    mat-icon.bubble_icon(mat-list-avatar) question_answer
+                    h4.height(mat-line)
                       a.stack_link([href]="'https://stackoverflow.com/a/' + answer.answer_id" target="_blank", rel="noopener") {{ answer.title }}
-                    p.height(md-line) Antwoord geaccepteerd: 
-                      md-icon.done(*ngIf="answer.is_accepted", md-list-avatar) done
-                      md-icon.clear(*ngIf="!answer.is_accepted", md-list-avatar) clear
-                    p.height(md-line) Reputatie: 
+                    p.height(mat-line) Antwoord geaccepteerd: 
+                      mat-icon.done(*ngIf="answer.is_accepted", mat-list-avatar) done
+                      mat-icon.clear(*ngIf="!answer.is_accepted", mat-list-avatar) clear
+                    p.height(mat-line) Reputatie: 
                       span {{ score(answer.score, answer.is_accepted) == 0 ? '-' : score(answer.score, answer.is_accepted) }}
           ng-template(#loading="")
             .loading
-              md-progress-spinner([color]="'accent'", [mode]="'indeterminate'")
+              mat-progress-spinner([color]="'accent'", [mode]="'indeterminate'")

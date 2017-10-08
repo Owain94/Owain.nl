@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { MatDialogRef } from '@angular/material';
 
 import { Log } from '../../../decorators/log.decorator';
 
@@ -12,5 +12,5 @@ import { Log } from '../../../decorators/log.decorator';
 @Log()
 // tslint:disable-next-line:component-class-suffix
 export class MailDialogComponent {
-  constructor(public dialogRef: MdDialogRef<MailDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<MailDialogComponent>) {}
 }
