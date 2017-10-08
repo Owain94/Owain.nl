@@ -1,14 +1,14 @@
 main
   .grid-g
     .grid-u-1
-      md-card.margin
-        md-card-header
-          md-card-title
+      mat-card.margin
+        mat-card-header
+          mat-card-title
             h2 WhatPulse
-        md-card-content
+        mat-card-content
           div(*ngIf="browser && stats | async; let stats; else loading")
             div.center(*ngIf="stats.error; else no_errors")
-              md-icon.dissatisfied(color="primary") sentiment_very_dissatisfied
+              mat-icon.dissatisfied(color="primary") sentiment_very_dissatisfied
               p Er kon geen connectie worden gemaakt met de WhatPulse API.
             ng-template(#no_errors="")
               .grid-g
@@ -20,4 +20,4 @@ main
                   span muisklikken deze maand
           ng-template(#loading="")
             .loading
-              md-progress-spinner([color]="'accent'", [mode]="'indeterminate'")
+              mat-progress-spinner([color]="'accent'", [mode]="'indeterminate'")

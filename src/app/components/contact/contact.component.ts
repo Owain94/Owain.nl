@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { Log } from '../../decorators/log.decorator';
 
@@ -22,7 +22,7 @@ export class ContactComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private mailService: MailService,
-              public dialog: MdDialog,
+              public dialog: MatDialog,
               @Inject(PLATFORM_ID) private platformId: Object) {
     this.browser = isPlatformBrowser(this.platformId);
   }

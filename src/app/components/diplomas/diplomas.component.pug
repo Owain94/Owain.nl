@@ -1,40 +1,40 @@
 main
   .grid-g
     .grid-u-1
-      md-card.margin
-        md-card-content
-          h3(md-subheader) Diploma's
+      mat-card.margin
+        mat-card-content
+          h3(mat-subheader) Diploma's
           .grid-g.flex
             .grid-u-1.grid-u-md-1.grid-u-lg-1-2.grid-u-xl-1-4.center.margin(*ngFor="let diploma of diplomas")
-              md-card.diploma
-                md-card-header
-                  md-card-title {{ diploma.name }}
-                picture(md-card-image)
+              mat-card.diploma
+                mat-card-header
+                  mat-card-title {{ diploma.name }}
+                picture(mat-card-image)
                   source([srcset]="'../../../assets/img/' + diploma.image + '.webp'", type='image/webp', width="248px" height="248px")
                   source([srcset]="'../../../assets/img/' + diploma.image + '.png'", type='image/png', width="248px" height="248px")
                   img([src]="'../../../assets/img/' + diploma.image + '.png'", width="248px" height="248px", [alt]="diploma.image + ' logo'")
-                md-card-content {{ diploma.date }}
+                mat-card-content {{ diploma.date }}
 
-          h3(md-subheader) Certificeringen
+          h3(mat-subheader) Certificeringen
           .grid-g.flex
             .grid-u-1.grid-u-md-1.grid-u-lg-1-2.grid-u-xl-1-4.center.margin(*ngFor="let certificate of certificates")
-              md-card.diploma
-                md-card-header
-                  md-card-title {{ certificate.name }}
-                picture(md-card-image)
+              mat-card.diploma
+                mat-card-header
+                  mat-card-title {{ certificate.name }}
+                picture(mat-card-image)
                   source([srcset]="'../../../assets/img/' + certificate.image + '.webp'", type='image/webp', width="248px" height="248px")
                   source([srcset]="'../../../assets/img/' + certificate.image + '.png'", type='image/png', width="248px" height="248px")
                   img([src]="'../../../assets/img/' + certificate.image + '.png'", width="248px" height="248px", [alt]="certificate.image + ' logo'")
-                md-card-content {{ certificate.date }}
+                mat-card-content {{ certificate.date }}
 
-          h3(md-subheader) Cursussen
+          h3(mat-subheader) Cursussen
           .grid-g.flex
             .grid-u-1.grid-u-md-1.grid-u-lg-1-2.grid-u-xl-1-4.center.margin(*ngFor="let course of courses")
-              md-card.diploma
-                md-card-header
-                  md-card-title {{ course.name }}
-                picture(md-card-image)
+              mat-card.diploma
+                mat-card-header
+                  mat-card-title {{ course.name }}
+                picture(mat-card-image)
                   source([srcset]="'../../../assets/img/' + course.image + '.webp'", type='image/webp', width="248px" height="248px")
                   source([srcset]="'../../../assets/img/' + course.image + '.png'", type='image/png', width="248px" height="248px")
                   img([src]="'../../../assets/img/' + course.image + '.png'", width="248px" height="248px", [alt]="course.image + ' logo'")
-                md-card-content {{ course.date }}
+                mat-card-content {{ course.date }}

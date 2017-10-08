@@ -3,7 +3,14 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {
-  MdMenuModule, MdButtonModule, MdCardModule, MdChipsModule, MdProgressSpinnerModule, MdInputModule, MdSlideToggleModule, MdDialogModule
+  MatMenuModule,
+  MatCardModule,
+  MatChipsModule,
+  MatInputModule,
+  MatButtonModule,
+  MatDialogModule,
+  MatProgressSpinnerModule,
+  MatSlideToggleModule
 } from '@angular/material';
 
 // import { AgmCoreModule } from '@agm/core';
@@ -77,14 +84,14 @@ export function provideErrorHandler() {
     HttpClientModule,
     ReactiveFormsModule,
 
-    MdMenuModule,
-    MdButtonModule,
-    MdCardModule,
-    MdChipsModule,
-    MdProgressSpinnerModule,
-    MdInputModule,
-    MdSlideToggleModule,
-    MdDialogModule,
+    MatMenuModule,
+    MatButtonModule,
+    MatCardModule,
+    MatChipsModule,
+    MatProgressSpinnerModule,
+    MatInputModule,
+    MatSlideToggleModule,
+    MatDialogModule,
 
     /* AgmCoreModule.forRoot({
       apiKey: mapsKey
