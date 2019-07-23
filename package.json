@@ -148,7 +148,7 @@
     "tslint-language-service": "0.9.6",
     "typescript": "2.5.3",
     "url-loader": "0.6.2",
-    "webpack": "3.7.1",
+    "webpack": "4.37.0",
     "webpack-merge": "4.1.0",
     "webpack-subresource-integrity": "1.0.1",
     "zopfli-webpack-plugin": "0.1.0"
