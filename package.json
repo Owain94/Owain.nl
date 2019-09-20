@@ -78,7 +78,7 @@
     "autoprefixer": "7.1.5",
     "brotli-webpack-plugin": "0.4.1",
     "codacy-coverage": "2.0.3",
-    "codecov": "2.3.0",
+    "codecov": "3.6.0",
     "codelyzer": "3.2.1",
     "copy-webpack-plugin": "4.1.1",
     "css-loader": "0.28.7",
