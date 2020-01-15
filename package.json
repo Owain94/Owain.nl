@@ -122,7 +122,7 @@
     "postcss-reduce-idents": "4.0.0-rc.2",
     "postcss-url": "7.1.2",
     "preload-webpack-plugin": "2.0.0",
-    "progress-bar-webpack-plugin": "1.10.0",
+    "progress-bar-webpack-plugin": "2.1.0",
     "protractor": "5.1.2",
     "pug": "2.0.0-rc.4",
     "pug-html-loader": "1.1.5",
